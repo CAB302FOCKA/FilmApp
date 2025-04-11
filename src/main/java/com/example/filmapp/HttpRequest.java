@@ -10,15 +10,15 @@ import java.text.MessageFormat;
 
 public class HttpRequest
 {
-    String url;
+    private static final OkHttpClient client = new OkHttpClient();
+    private final String url;
 
-    public HttpRequest(String url) {
+    public HttpRequest(String url)
+    {
         this.url = url;
     }
 
     public JSONObject Fetch() throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
         Request request = new Request.Builder()
                 .url(url)
                 .get()
@@ -26,8 +26,8 @@ public class HttpRequest
                 .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjFhNDZmZTAzMDYzMTkxYzIxZmRlNDFjZDNjNGY3YSIsIm5iZiI6MTc0MjkwNDcyNS44MjMsInN1YiI6IjY3ZTI5ZDk1MTZhM2M1YzIyNGYwNjUzMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XkcGqKO9RPDcTHisYqAWnXG__T3ZQuggbDABN8xYv5Q")
                 .build();
 
-        Response response = client.newCall(request).execute();
-
-        return (JSONObject) JSONValue.parse(response.body().string());
+        try (Response response = client.newCall(request).execute()) {
+            return (JSONObject) JSONValue.parse(response.body().string());
+        }
     }
 }
