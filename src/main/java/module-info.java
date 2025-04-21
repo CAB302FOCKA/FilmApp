@@ -5,6 +5,7 @@ module com.example.filmapp {
     requires org.kordamp.bootstrapfx.core;
     requires json.simple;
     requires okhttp3;
+    requires java.sql;
 
     opens com.example.filmapp to javafx.fxml;
     exports com.example.filmapp;
