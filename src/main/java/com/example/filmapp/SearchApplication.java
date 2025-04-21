@@ -14,15 +14,6 @@ public class SearchApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setScene(scene);
         stage.show();
-
-        API api = new API();
-        Media media = MediaFactory.fromJson(api.getMediaDetails("tv", "95396"), "tv");
-
-        System.out.println(media.id);
-        System.out.println(media.title);
-        System.out.println(media.rating);
-        System.out.println(media.overview);
-        System.out.println(media.posterPath);
     }
 
     public static void main(String[] args) {

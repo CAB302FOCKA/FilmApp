@@ -3,16 +3,21 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.filmapp.SearchController">
+   <Label fx:id="queryLabel"/>
+   <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0">
+      <children>
+         <ImageView fx:id="image1" fitHeight="263.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="image2" fitHeight="263.0" fitWidth="178.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="image3" fitHeight="263.0" fitWidth="178.0" layoutX="188.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="image4" fitHeight="263.0" fitWidth="178.0" layoutX="366.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="image5" fitHeight="263.0" fitWidth="178.0" layoutX="10.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="image6" fitHeight="263.0" fitWidth="178.0" layoutX="188.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="image7" fitHeight="263.0" fitWidth="178.0" layoutX="366.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="image8" fitHeight="263.0" fitWidth="178.0" layoutX="10.0" layoutY="536.0" pickOnBounds="true" preserveRatio="true" />
+      </children>
+   </FlowPane>
+</VBox>
 
-<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0">
-   <children>
-      <ImageView id="image1" fitHeight="263.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView id="image2" fitHeight="263.0" fitWidth="178.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView id="image3" fitHeight="263.0" fitWidth="178.0" layoutX="188.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView id="image4" fitHeight="263.0" fitWidth="178.0" layoutX="366.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView id="image5" fitHeight="263.0" fitWidth="178.0" layoutX="10.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView id="image6" fitHeight="263.0" fitWidth="178.0" layoutX="188.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView id="image7" fitHeight="263.0" fitWidth="178.0" layoutX="366.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView id="image8" fitHeight="263.0" fitWidth="178.0" layoutX="10.0" layoutY="536.0" pickOnBounds="true" preserveRatio="true" />
-   </children>
-</FlowPane>
