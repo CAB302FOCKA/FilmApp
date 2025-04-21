@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="711.0" prefWidth="600.0">
+         <children>
+            <VBox prefHeight="714.0" prefWidth="600.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b1b1b" height="141.0" stroke="BLACK" strokeType="INSIDE" width="627.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="titleText" layoutX="126.0" layoutY="59.0" text="Title" />
+                        <Label layoutX="124.0" layoutY="76.0" text="Movie - M - 1h 30m" />
+                        <Label fx:id="overviewText" alignment="TOP_LEFT" layoutX="124.0" layoutY="95.0" prefHeight="105.0" prefWidth="380.0" text="Film Description - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac quam dapibus, placerat sem ut, aliquam lacus. Orci varius natoque  penatibus et magnis dis parturient montes, nascetur ridiculus mus.  Aliquam blandit urna odio. Etiam odio nulla, bibendum eu arcu quis,  egestas efficitur libero. Proin a nibh nibh.   " wrapText="true" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="107.0" layoutX="30.0" layoutY="47.0" stroke="BLACK" strokeType="INSIDE" width="86.0" />
+                        <Button layoutX="496.0" layoutY="27.0" mnemonicParsing="false" text="Play Trailer" />
+                        <Button layoutX="18.0" layoutY="14.0" mnemonicParsing="false" text="&lt;" />
+                        <Label fx:id="ratingText" layoutX="245.0" layoutY="76.0" text="Rating" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="43.0" layoutY="31.0" text="Cast" />
+                        <ScrollPane layoutY="59.0" prefHeight="82.0" prefWidth="593.0" vbarPolicy="NEVER" vmax="0.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="851.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="23.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="100.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="177.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="255.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="335.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="413.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="485.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="561.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="625.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="676.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="773.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="10.0" layoutY="351.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="43.0" layoutY="31.0" text="Similar to this..." />
+                        <ScrollPane layoutY="59.0" prefHeight="82.0" prefWidth="593.0" vbarPolicy="NEVER" vmax="0.0">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="851.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="23.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="100.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="177.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="255.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="335.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="413.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="485.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="561.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="625.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="676.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="773.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children></AnchorPane>
+  </content>
+</ScrollPane>
