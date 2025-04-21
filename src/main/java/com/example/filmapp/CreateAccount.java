@@ -64,8 +64,12 @@ public class CreateAccount extends Application {
             System.out.println("Passwords do not match.");
             return false;
         }
-
-        // Add more validations as needed (e.g., email format, password strength, etc.)
+        // Check to see if email follows format email@emailprovider.com
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        if (!email.matches(emailRegex)) {
+            System.out.println("Invalid email format.");
+            return false;
+        }
         return true;
     }
 
@@ -91,7 +95,7 @@ public class CreateAccount extends Application {
 
     // Method to hash the password using BCrypt
     private String hashPassword(String password) {
-        String salt = BCrypt.gensalt(12); // Increase the number for more security
+        String salt = BCrypt.gensalt(12);
         return BCrypt.hashpw(password, salt);  // Hash the password
     }
 
