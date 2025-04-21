@@ -35,7 +35,7 @@ public class SearchController {
     public void initialize() throws IOException {
         API api = new API();
 
-        String query = "Interstellar";
+        String query = "minecraft";
 
         JSONArray apiResults = api.searchMediaByTitle(query,"movie");
         ArrayList<String> searchResults = new ArrayList<String>();
