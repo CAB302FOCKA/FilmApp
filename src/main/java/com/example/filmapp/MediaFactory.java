@@ -11,13 +11,10 @@ public class MediaFactory {
         double rating;
 
         // Use different keys for TV shows
-        if (mediaType.equalsIgnoreCase("movie")) {
-            title = (String) json.getOrDefault("title", "Unknown Title");
-        } else if (mediaType.equalsIgnoreCase("tv")) {
-            title = (String) json.getOrDefault("name", "Unknown Title");
-        } else {
-            throw new IllegalArgumentException("Unsupported media type: " + mediaType);
-        }
+        if (mediaType.equalsIgnoreCase("movie")) { title = (String) json.getOrDefault("title", "Unknown Title");}
+        else if (mediaType.equalsIgnoreCase("tv")) { title = (String) json.getOrDefault("name", "Unknown Title");}
+        else if (mediaType.equalsIgnoreCase("multi")) { title = (String) json.getOrDefault("name", "Unknown Title");}
+        else { throw new IllegalArgumentException("Unsupported media type: " + mediaType);}
 
         overview = (String) json.getOrDefault("overview", "No overview available.");
         posterPath = (String) json.getOrDefault("poster_path", null);
@@ -30,6 +27,8 @@ public class MediaFactory {
             case "movie":
                 return new Media(id, title, overview, posterPath, rating);
             case "tv":
+                return new Media(id, title, overview, posterPath, rating);
+            case "multi":
                 return new Media(id, title, overview, posterPath, rating);
             default:
                 throw new IllegalArgumentException("Unknown media type: " + mediaType);
