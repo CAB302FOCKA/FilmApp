@@ -1,9 +1,13 @@
 package com.example.filmapp;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -13,49 +17,42 @@ import java.util.ArrayList;
 
 public class SearchController {
     @FXML
-    private ImageView image1;
-    @FXML
-    private ImageView image2;
-    @FXML
-    private ImageView image3;
-    @FXML
-    private ImageView image4;
-    @FXML
-    private ImageView image5;
-    @FXML
-    private ImageView image6;
-    @FXML
-    private ImageView image7;
-    @FXML
-    private ImageView image8;
-    @FXML
     private Label queryLabel;
+    @FXML
+    private FlowPane flowPane;
+    @FXML
+    private TextField queryTextField;
+    @FXML
+    private Button searchButton;
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() throws IOException {}
+
+    @FXML
+    protected void handleSearchButtonAction(ActionEvent event) throws IOException {
+        flowPane.getChildren().clear();
+
         API api = new API();
 
-        String query = "minecraft";
-
-        JSONArray apiResults = api.searchMediaByTitle(query,"movie");
+        JSONArray apiResults = api.searchMediaByTitle(queryTextField.getText(),"tv");
         ArrayList<String> searchResults = new ArrayList<String>();
 
         for (Object object : apiResults) {
             JSONObject obj = (JSONObject) object;
-            String posterUrl = MediaFactory.fromJson(obj, "movie").posterPath;
+            String posterUrl = MediaFactory.fromJson(obj, "tv").posterPath;
 
-            if (posterUrl != null) searchResults.add(posterUrl);
+            System.out.println(posterUrl);
+
+            if (posterUrl != null) {
+                ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + posterUrl);
+                imageView.setFitWidth(178);
+                imageView.setFitHeight(263);
+                imageView.setPreserveRatio(true);
+
+                flowPane.getChildren().add(imageView);
+            }
         }
 
-        queryLabel.setText(MessageFormat.format("Showing results for \"{0}\"", query));
-
-        image1.setImage(new Image("https://image.tmdb.org/t/p/w500" + searchResults.get(0)));
-        image2.setImage(new Image("https://image.tmdb.org/t/p/w500" + searchResults.get(1)));
-        image3.setImage(new Image("https://image.tmdb.org/t/p/w500" + searchResults.get(2)));
-        image4.setImage(new Image("https://image.tmdb.org/t/p/w500" + searchResults.get(3)));
-        image5.setImage(new Image("https://image.tmdb.org/t/p/w500" + searchResults.get(4)));
-        image6.setImage(new Image("https://image.tmdb.org/t/p/w500" + searchResults.get(5)));
-        image7.setImage(new Image("https://image.tmdb.org/t/p/w500" + searchResults.get(6)));
-        image8.setImage(new Image("https://image.tmdb.org/t/p/w500" + searchResults.get(7)));
+        queryLabel.setText(MessageFormat.format("Showing results for \"{0}\"", queryTextField.getText()));
     }
 }
