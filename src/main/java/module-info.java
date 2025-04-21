@@ -6,6 +6,7 @@ module com.example.filmapp {
     requires json.simple;
     requires okhttp3;
     requires java.sql;
+    requires jbcrypt;
 
     opens com.example.filmapp to javafx.fxml;
     exports com.example.filmapp;
