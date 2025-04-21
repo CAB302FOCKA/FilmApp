@@ -13,7 +13,12 @@ public class MediaFactory {
         // Use different keys for TV shows
         if (mediaType.equalsIgnoreCase("movie")) { title = (String) json.getOrDefault("title", "Unknown Title");}
         else if (mediaType.equalsIgnoreCase("tv")) { title = (String) json.getOrDefault("name", "Unknown Title");}
-        else if (mediaType.equalsIgnoreCase("multi")) { title = (String) json.getOrDefault("name", "Unknown Title");}
+        else if (mediaType.equalsIgnoreCase("multi")) {
+            title = (String) json.getOrDefault("title", "Unknown Title");
+            if (title.equals("Unknown Title")) {
+                title = (String) json.getOrDefault("name", "Unknown Title");
+            }
+        }
         else { throw new IllegalArgumentException("Unsupported media type: " + mediaType);}
 
         overview = (String) json.getOrDefault("overview", "No overview available.");

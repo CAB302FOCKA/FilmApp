@@ -1,17 +1,17 @@
 package com.example.filmapp;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 
 public class SearchController {
     @FXML
@@ -59,11 +59,11 @@ public class SearchController {
         //Loop through list of media
         for (Object object : apiResults) {
             JSONObject obj = (JSONObject) object;
-            String posterUrl = MediaFactory.fromJson(obj, mediaType).posterPath;
 
-            System.out.println(posterUrl);
+            Media media = MediaFactory.fromJson(obj, mediaType);
+            String posterUrl = media.posterPath;
 
-            // Skip to next item
+            // If no image then skip to next item
             if (posterUrl == null) continue;
 
             ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + posterUrl);
@@ -75,7 +75,13 @@ public class SearchController {
             imageView.setFitWidth(posterLength);
             imageView.setFitHeight(posterHeight);
 
-            imageView.setPreserveRatio(true);
+            imageView.setPreserveRatio(false);
+            imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    System.out.println(MessageFormat.format("[{0}] {1}", media.id, media.title));
+                }
+            });
 
             flowPane.getChildren().add(imageView);
         }

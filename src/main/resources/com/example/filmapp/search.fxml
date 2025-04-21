@@ -36,7 +36,7 @@
    </MenuBar>
    <Label fx:id="queryLabel">
       <font>
-         <Font size="32.0" />
+         <Font name="System Bold" size="32.0" />
       </font>
       <padding>
          <Insets bottom="15.0" left="30.0" top="15.0" />
