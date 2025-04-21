@@ -13,9 +13,6 @@ public class DatabaseConnection {
     public static Connection getConnection() throws SQLException {
         Connection connection = null;
         try {
-            // Load the database driver (optional for modern JDBC drivers)
-            // Class.forName("com.your_database_type.jdbc.Driver");
-
             // Establish the connection
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
