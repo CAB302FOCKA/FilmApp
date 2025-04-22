@@ -43,11 +43,6 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Text>
-      <Text layoutX="999.0" layoutY="743.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create one!" underline="true">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Text>
       <Text layoutX="1152.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot password?" underline="true">
          <font>
             <Font size="13.0" />
@@ -66,6 +61,11 @@
       <Label fx:id="loginStatus" layoutX="734.0" layoutY="836.0">
          <font>
             <Font size="50.0" />
+         </font>
+      </Label>
+      <Label fx:id="accCreate" layoutX="993.0" layoutY="709.0" onMouseClicked="#handleCreateAccountRedirect" text="Create one!" underline="true">
+         <font>
+            <Font size="30.0" />
          </font>
       </Label>
    </children>

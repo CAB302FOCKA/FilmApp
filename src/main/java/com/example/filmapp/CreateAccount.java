@@ -1,6 +1,5 @@
 package com.example.filmapp;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,13 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class CreateAccount extends Application {
+public class CreateAccount {
 
     @FXML
     private TextField myUsername;
@@ -31,84 +33,79 @@ public class CreateAccount extends Application {
     @FXML
     private Label myLogin;
 
-    String username;
-    String email;
-    String pass;
-    String confPass;
+    private String username;
+    private String email;
+    private String pass;
+    private String confPass;
 
-    // Method triggered when the submit button is pressed
-    public void submit(ActionEvent event) throws IOException {
+    @FXML
+    private void submit(ActionEvent event) throws IOException {
         username = myUsername.getText();
         email = myEmail.getText();
         pass = myPass.getText();
         confPass = myConfPass.getText();
 
-        // Print the values for debugging
-        System.out.println(username + " " + email + " " + pass + " " + confPass);
-
-        // Validate inputs and proceed to create the account
         if (validateInputs()) {
-            createAccount();
+            if (createAccount()) {
+                switchToLoginPage(); // redirect if account successfully created
+            }
         }
     }
 
-    // Method to validate the user inputs
+    @FXML
+    private void handleLoginRedirect(MouseEvent event) throws IOException {
+        SceneManager.switchTo("login.fxml");
+    }
+
     private boolean validateInputs() {
         if (username.isEmpty() || email.isEmpty() || pass.isEmpty() || confPass.isEmpty()) {
             System.out.println("All fields are required.");
             return false;
         }
 
-        // Check if password and confirmation match
         if (!pass.equals(confPass)) {
             System.out.println("Passwords do not match.");
             return false;
         }
-        // Check to see if email follows format email@emailprovider.com
+
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
         if (!email.matches(emailRegex)) {
             System.out.println("Invalid email format.");
             return false;
         }
+
         return true;
     }
 
-    // Method to create the account by storing hashed password in the database
-    public void createAccount() {
+    private boolean createAccount() {
         String hashedPassword = hashPassword(pass);
-
-        // Use the hashed password in your SQL insert query
         String query = "INSERT INTO user (userName, userEmail, userPass) VALUES (?, ?, ?)";
+
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, email);
-            preparedStatement.setString(3, hashedPassword);  // Store the hashed password
+            preparedStatement.setString(3, hashedPassword);
 
             int rowsAffected = preparedStatement.executeUpdate();
-            System.out.println("Account created, rows affected: " + rowsAffected);
+            System.out.println("Account created successfully.");
+            return rowsAffected > 0;
+
         } catch (SQLException e) {
             System.err.println("Error creating account: " + e.getMessage());
+            return false;
         }
     }
 
-    // Method to hash the password using BCrypt
     private String hashPassword(String password) {
-        String salt = BCrypt.gensalt(12);
-        return BCrypt.hashpw(password, salt);  // Hash the password
+        return BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
 
-    // JavaFX application setup
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Create-Account.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
+    private void switchToLoginPage() throws IOException {
+        Stage stage = (Stage) myCreateAccount.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        Scene scene = new Scene(loader.load(), 1920, 1080);
         stage.setScene(scene);
-        stage.show();
-    }
-
-    // Main method to launch the JavaFX application
-    public static void main(String[] args) {
-        launch();
     }
 }

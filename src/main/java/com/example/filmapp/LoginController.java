@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,9 +29,16 @@ public class LoginController {
     private Label loginStatus;
 
     @FXML
+    private Label accCreate;
+    @FXML
     public void initialize() {
         System.out.println("LoginController initialized!");
     }
+    @FXML
+    private void handleCreateAccountRedirect(MouseEvent event) throws IOException {
+        SceneManager.switchTo("create-account.fxml");
+    }
+
     @FXML
     private void handleLogin(ActionEvent event) {
         String email = emailField.getText();
