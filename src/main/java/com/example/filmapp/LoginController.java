@@ -27,6 +27,10 @@ public class LoginController {
     private Label loginStatus;
 
     @FXML
+    public void initialize() {
+        System.out.println("LoginController initialized!");
+    }
+    @FXML
     private void handleLogin(ActionEvent event) {
         String email = emailField.getText();
         String password = passwordField.getText();
@@ -36,7 +40,7 @@ public class LoginController {
             return;
         }
 
-        String query = "SELECT password FROM users WHERE email = ?";
+        String query = "SELECT userPass FROM user WHERE userEmail = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -45,7 +49,7 @@ public class LoginController {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                String storedHashedPassword = resultSet.getString("password");
+                String storedHashedPassword = resultSet.getString("userPass");
 
                 if (BCrypt.checkpw(password, storedHashedPassword)) {
                     loginStatus.setText("Login successful!");
