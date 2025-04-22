@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String DB_URL = "jdbc:MySQL://bc2anwjprqmkmyqwkuor-mysql.services.clever-cloud.com:3306/bc2anwjprqmkmyqwkuor";
+    private static final String DB_URL = "jdbc:mysql://bc2anwjprqmkmyqwkuor-mysql.services.clever-cloud.com:3306/bc2anwjprqmkmyqwkuor";
     private static final String DB_USER = "uv4bzjiva6brbyfv";
     private static final String DB_PASSWORD = "vWxpBoXeSQ5qRLe3i3di";
 

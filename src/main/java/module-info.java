@@ -1,7 +1,6 @@
 module com.example.filmapp {
     requires javafx.controls;
     requires javafx.fxml;
-
     requires org.kordamp.bootstrapfx.core;
     requires json.simple;
     requires okhttp3;
