@@ -15,25 +15,6 @@
 <?import javafx.scene.text.Font?>
 
 <VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filmapp.SearchController">
-   <MenuBar>
-     <menus>
-       <Menu mnemonicParsing="false" text="File">
-         <items>
-           <MenuItem mnemonicParsing="false" text="Close" />
-         </items>
-       </Menu>
-       <Menu mnemonicParsing="false" text="Edit">
-         <items>
-           <MenuItem mnemonicParsing="false" text="Delete" />
-         </items>
-       </Menu>
-       <Menu mnemonicParsing="false" text="Help">
-         <items>
-           <MenuItem mnemonicParsing="false" text="About" />
-         </items>
-       </Menu>
-     </menus>
-   </MenuBar>
    <Label fx:id="queryLabel">
       <font>
          <Font name="System Bold" size="32.0" />
@@ -48,7 +29,6 @@
          <TextField fx:id="queryTextField" promptText="Search..." />
          <Button fx:id="searchButton" mnemonicParsing="false" onAction="#handleSearchButtonAction" text="Search" />
          <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-         <ComboBox fx:id="sortComboBox" prefWidth="150.0" />
       </children>
       <padding>
          <Insets left="30.0" right="30.0" />

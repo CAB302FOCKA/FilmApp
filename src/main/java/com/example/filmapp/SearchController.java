@@ -29,9 +29,6 @@ public class SearchController {
     public void initialize() {
         filterComboBox.getItems().addAll("Movies & TV","Movies","TV Shows");
         filterComboBox.setValue("Movies & TV");
-
-        sortComboBox.getItems().addAll("Relevance","Popularity","Rating");
-        sortComboBox.setValue("Relevance");
     }
 
     @FXML
@@ -76,11 +73,8 @@ public class SearchController {
             imageView.setFitHeight(posterHeight);
 
             imageView.setPreserveRatio(false);
-            imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    System.out.println(MessageFormat.format("[{0}] {1}", media.id, media.title));
-                }
+            imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent ->  {
+                System.out.println(MessageFormat.format("[{0}] {1}", media.id, media.title));
             });
 
             flowPane.getChildren().add(imageView);
