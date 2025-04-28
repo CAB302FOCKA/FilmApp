@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.filmapp.SettingsController">
+
+    <top>
+        <Label text="Settings" style="-fx-font-weight: bold; -fx-font-size: 32px;"
+               maxWidth="Infinity" alignment="CENTER" />
+    </top>
+    <left>
+        <VBox spacing="85" alignment="TOP_LEFT">
+            <padding>
+                <Insets top="30" right="80" bottom="30" left="10"/>
+            </padding>
+
+            <Button text="Back" onAction="#handleBack" prefWidth="200"
+                    graphicTextGap="10"
+                    style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 20px; -fx-border-color: transparent;" >
+                <graphic>
+                    <ImageView fitHeight="80" fitWidth="80">
+                        <image>
+                            <Image url="file:src/main/resources/icons/back.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </VBox>
+    </left>
+
+    <center>
+        <HBox alignment="CENTER_LEFT">
+            <VBox spacing="50.0" alignment="CENTER_LEFT">
+                <padding>
+                    <Insets top="150" right="80" bottom="30" left="-90"/>
+                </padding>
+
+                <!-- Adjust Button Styles to Left-align Text -->
+                <Button text="Account" onAction="#handleAccount" prefWidth="500"
+                        graphicTextGap="25"
+                        style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" >
+                    <graphic>
+                        <ImageView fitHeight="80" fitWidth="80">
+                            <image>
+                                <Image url="file:src/main/resources/icons/account.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button text="Hidden" onAction="#handleHidden" prefWidth="500"
+                        graphicTextGap="25"
+                        style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" >
+                    <graphic>
+                        <ImageView fitHeight="80" fitWidth="80">
+                            <image>
+                                <Image url="file:src/main/resources/icons/hidden.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button text="Privacy &amp; Data" onAction="#handlePrivacy" prefWidth="500"
+                        graphicTextGap="25"
+                        style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" >
+                    <graphic>
+                        <ImageView fitHeight="80" fitWidth="80" >
+                            <image>
+                                <Image url="file:src/main/resources/icons/privacy.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button text="Terms and Conditions" onAction="#handleTerms" prefWidth="500"
+                        graphicTextGap="25"
+                        style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" >
+                    <graphic>
+                        <ImageView fitHeight="80" fitWidth="80" >
+                            <image>
+                                <Image url="file:src/main/resources/icons/terms.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button text="Logout" onAction="#handleLogout" prefWidth="500"
+                        graphicTextGap="25"
+                        style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: red; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" >
+                    <graphic>
+                        <ImageView fitHeight="80" fitWidth="80" >
+                            <image>
+                                <Image url="file:src/main/resources/icons/logout.png" />
+
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </VBox>
+        </HBox>
+    </center>
+
+    <bottom>
+        <Label maxWidth="Infinity" alignment="CENTER" >
+            <graphic>
+                <ImageView fitHeight="120" fitWidth="300" >
+                    <image>
+                        <Image url="file:src/main/resources/icons/focka.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Label>
+    </bottom>
+</BorderPane>
