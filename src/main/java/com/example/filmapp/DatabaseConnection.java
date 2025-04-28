@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Class to establish connection to mySQL database.
+ */
 public class DatabaseConnection {
 
     private static final String DB_URL = "jdbc:mysql://bc2anwjprqmkmyqwkuor-mysql.services.clever-cloud.com:3306/bc2anwjprqmkmyqwkuor";

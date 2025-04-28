@@ -14,6 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Function to log users in. The function queries the database based off form submitted and compares the userEmail with the hashed userPass
+ */
 public class LoginController {
 
     @FXML
