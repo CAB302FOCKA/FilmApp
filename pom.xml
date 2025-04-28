@@ -85,6 +85,25 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.4.0</version>
+        <configuration>
+          <destDir>.</destDir>
+          <reportOutputDirectory>${basedir}/docs/javadoc</reportOutputDirectory>
+          <failOnError>false</failOnError>
+          <doclint>none</doclint>
+          <aggregate>false</aggregate>
+          <additionalOptions>
+            <additionalOption>--release</additionalOption>
+            <additionalOption>21</additionalOption>
+          </additionalOptions>
+          <source/>
+          <target/>
+          <excludeDependencySources>true</excludeDependencySources> <!-- ⭐⭐ -->
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
