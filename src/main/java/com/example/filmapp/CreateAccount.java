@@ -16,6 +16,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Class to create user account. Pulls userName, userEmail and userPass and uploads it to database.
+ * Before uploading to the database the userPass is hashed to ensure user security
+ */
 public class CreateAccount {
 
     @FXML
