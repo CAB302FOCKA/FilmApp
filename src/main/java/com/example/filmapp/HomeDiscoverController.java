@@ -2,100 +2,109 @@ package com.example.filmapp;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class HomeDiscoverController {
 
     @FXML
-    private ScrollPane scrollPane;
+    private VBox watchlistBox;
 
     @FXML
-    private GridPane movieContainer;
+    private VBox forYouBox;
+
+    @FXML
+    private VBox trendingBox;
 
     @FXML
     public void initialize() {
         System.out.println("HomeDiscoverController initialized");
 
-        loadMediaById();
+        loadWatchlist(); // Hardcoded
+        loadForYou();    // Random IDs
+        loadTrending();  // From API
     }
 
-    private void loadMediaById() {
-        Object[][] mediaList = {
+    private void loadWatchlist() {
+        Object[][] watchlist = {
                 {"tv", "1396"},     // Breaking Bad
                 {"tv", "1398"},     // Game of Thrones
                 {"tv", "1668"},     // Friends
-                {"tv", "4613"},     // The Office
-                {"movie", "603"},   // The Matrix
-                {"tv", "60574"},    // Peaky Blinders
-                {"tv", "61889"},    // The Mandalorian
-                {"tv", "71712"},    // The Good Doctor
-                {"tv", "71912"}     // Example extra
         };
-
-        int column = 0;
-        int row = 0;
-
-        for (Object[] entry : mediaList) {
-            String type = (String) entry[0];
-            String id = (String) entry[1];
-
-            try {
-                API api = new API();
-                JSONObject json = api.getMediaDetails(type, id);
-                Media media = MediaFactory.fromJson(json, type);
-
-                if (media == null || media.posterPath == null) continue;
-
-                ImageView poster = new ImageView("https://image.tmdb.org/t/p/w200" + media.posterPath);
-                poster.setFitWidth(100);
-                poster.setFitHeight(150);
-
-                Label title = new Label(media.title);
-                title.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
-
-                Label description = new Label(media.overview);
-                description.setWrapText(true);
-                description.setMaxWidth(250);
-
-                VBox infoBox = new VBox(title, description);
-                infoBox.setSpacing(5);
-
-                HBox mediaCard = new HBox(poster, infoBox);
-                mediaCard.setSpacing(20);
-
-                movieContainer.add(mediaCard, column, row);
-
-                column++;
-                if (column == 3) {
-                    column = 0;
-                    row++;
-                }
-
-            } catch (Exception e) {
-                System.err.println("Error loading media ID " + id + ": " + e.getMessage());
-            }
+        for (Object[] entry : watchlist) {
+            addMediaCard((String) entry[0], (String) entry[1], watchlistBox);
         }
     }
 
+    private void loadForYou() {
+        Object[][] suggestions = {
+                {"movie", "603"},    // The Matrix
+                {"tv", "4613"},      // The Office
+                {"tv", "61889"},     // The Mandalorian
+        };
+        for (Object[] entry : suggestions) {
+            addMediaCard((String) entry[0], (String) entry[1], forYouBox);
+        }
+    }
 
-    @FXML
-    private void handleSearchButton() {
+    private void loadTrending() {
         try {
-            SceneManager.switchTo("search.fxml");
+            API api = new API();
+            JSONArray results = api.getTrendingMediaList("movie");
+            if (results == null) return;
+
+            for (int i = 0; i < Math.min(5, results.size()); i++) {
+                JSONObject json = (JSONObject) results.get(i);
+                Media media = MediaFactory.fromJson(json, "movie");
+                if (media != null && media.posterPath != null) {
+                    trendingBox.getChildren().add(buildCard(media));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @FXML
-    private void handleSettingsButton() {
+    private void addMediaCard(String type, String id, VBox targetBox) {
         try {
-            SceneManager.switchTo("settings.fxml");
+            API api = new API();
+            JSONObject json = api.getMediaDetails(type, id);
+            Media media = MediaFactory.fromJson(json, type);
+            if (media != null && media.posterPath != null) {
+                targetBox.getChildren().add(buildCard(media));
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to load: " + id);
+        }
+    }
+
+    private HBox buildCard(Media media) {
+        ImageView poster = new ImageView("https://image.tmdb.org/t/p/w200" + media.posterPath);
+        poster.setFitWidth(80);
+        poster.setFitHeight(120);
+
+        Label title = new Label(media.title);
+        title.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+
+        Label desc = new Label(media.overview);
+        desc.setWrapText(true);
+        desc.setMaxWidth(300);
+
+        VBox infoBox = new VBox(title, desc);
+        infoBox.setSpacing(5);
+
+        HBox card = new HBox(poster, infoBox);
+        card.setSpacing(15);
+        return card;
+    }
+
+    @FXML
+    private void handleSearchButton() {
+        try {
+            SceneManager.switchTo("search.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
