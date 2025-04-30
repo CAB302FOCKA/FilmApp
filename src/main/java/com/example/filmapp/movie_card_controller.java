@@ -6,16 +6,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class movie_card_controller {
-
-    @FXML private ImageView imageView;
     @FXML private Label titleLabel;
-    @FXML private Label descLabel;
+    @FXML private Label descriptionLabel;
+    @FXML private ImageView imageView;
 
     public void setData(String title, String description, String imageUrl) {
         titleLabel.setText(title);
-        descLabel.setText(description);
+        descriptionLabel.setText(description);
+
         if (imageUrl != null && !imageUrl.isEmpty()) {
             imageView.setImage(new Image(imageUrl));
         }
     }
 }
+
