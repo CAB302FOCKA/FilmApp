@@ -15,7 +15,7 @@ public class Home_Discover extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Home_Discover.class.getResource("home_discover.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Home_Discover.class.getResource("home_discover2.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("FOCKA Films");
         stage.setScene(scene);

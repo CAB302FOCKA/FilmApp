@@ -19,7 +19,7 @@ import java.text.MessageFormat;
 public class TMDB {
     String title;
     String overview;
-    String yearAired;
+    String poster_path;
     Long id;
 
     public void getSeriesOverview(String titleQuery) throws IOException {
@@ -27,20 +27,25 @@ public class TMDB {
         HttpRequest httpRequest = new HttpRequest(url);
         JSONObject jsonResponse = httpRequest.Fetch();
 
-        JSONArray results  = (JSONArray) jsonResponse.get("results");
+        JSONArray results = (JSONArray) jsonResponse.get("results");
+        if (results.isEmpty()) {
+            throw new IOException("No results found for query: " + titleQuery);
+        }
+
         JSONObject firstResult = (JSONObject) results.getFirst();
 
         this.title = (String) firstResult.get("original_name");
         this.overview = (String) firstResult.get("overview");
-
-        String airDate = (String) firstResult.get("first_air_date");
-        this.yearAired = airDate.split("-")[0];
-
+        this.poster_path = (String) firstResult.getOrDefault("poster_path", null);
         this.id = (Long) firstResult.get("id");
     }
 
-    public void getSeriesImage(Long id){
-        String url = MessageFormat.format("https://api.themoviedb.org/3/search/tv?query={0}&include_adult=false&language=en-US&page=1", id);
-        HttpRequest httpRequest = new HttpRequest(url);
+
+    public String getImageUrl() {
+        if (poster_path != null) {
+            return "https://image.tmdb.org/t/p/w500" + poster_path;
+        }
+        return null;
     }
+
 }

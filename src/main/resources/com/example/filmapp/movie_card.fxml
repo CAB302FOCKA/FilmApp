@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.SplitPane?>
+
+<SplitPane xmlns:fx="http://javafx.com/fxml" orientation="VERTICAL">
+    <items>
+        <VBox alignment="CENTER">
+            <ImageView fx:id="image" fitHeight="150" fitWidth="100" />
+        </VBox>
+        <VBox alignment="CENTER">
+            <Label fx:id="titleLabel" text="Title" />
+            <Label fx:id="descLabel" text="Description" />
+        </VBox>
+    </items>
+</SplitPane>
