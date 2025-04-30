@@ -4,26 +4,34 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
+
 import java.io.IOException;
+import java.util.List;
 
 public class HelloController {
 
     @FXML private VBox movieContainer;
 
     @FXML
-    public void initialize() throws IOException {
-        TMDB series = new TMDB();
-        series.getSeriesOverview("Better Call Saul");
+    public void initialize() {
+        List<String> titles = List.of("Better Call Saul", "Breaking Bad", "The Office", "Game of Thrones");
 
-        // Load MovieCard.fxml
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/filmapp/MovieCard.fxml"));
-        Parent card = loader.load();
+        for (String title : titles) {
+            try {
+                TMDB series = new TMDB();
+                series.getSeriesOverview(title);
 
-        // Set the data
-        movie_card_controller controller = loader.getController();
-        controller.setData(series.title, series.overview, series.getImageUrl());
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("movie_card.fxml"));
+                Parent card = loader.load();
 
-        // Add card to the container
-        movieContainer.getChildren().add(card);
+                movie_card_controller controller = loader.getController();
+                controller.setData(series.title, series.overview, series.getImageUrl());
+
+                movieContainer.getChildren().add(card);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
