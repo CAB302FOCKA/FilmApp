@@ -22,7 +22,7 @@
                 <Insets top="30" right="80" bottom="30" left="10"/>
             </padding>
 
-            <Button text="Back" onAction="#handleBack" prefWidth="200"
+            <Button text="Back" onAction="#handleBackController" prefWidth="200"
                     graphicTextGap="10"
                     style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 20px; -fx-border-color: transparent;" >
                 <graphic>

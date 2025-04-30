@@ -81,4 +81,8 @@ public class SearchController {
         }
         queryLabel.setText(MessageFormat.format("Showing results for \"{0}\"", queryTextField.getText()));
     }
+    @FXML
+    private void handleBackController() throws IOException {
+        SceneManager.switchTo("home_discover2.fxml");
+    }
 }

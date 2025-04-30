@@ -2,6 +2,8 @@ package com.example.filmapp;
 
 import javafx.fxml.FXML;
 
+import java.io.IOException;
+
 public class SettingsController {
 
     @FXML
@@ -37,5 +39,9 @@ public class SettingsController {
     protected void handleLogout() {
         System.out.println("Logging out...");
         // Perform logout
+    }
+    @FXML
+    private void handleBackController() throws IOException {
+        SceneManager.switchTo("home_discover2.fxml");
     }
 }
