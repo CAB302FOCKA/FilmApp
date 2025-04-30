@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 
 // Owen
 //Main method to run the whole application
+// Merge home to dev
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {

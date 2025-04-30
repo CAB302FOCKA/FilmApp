@@ -65,7 +65,7 @@ public class LoginController {
 
                 if (BCrypt.checkpw(password, storedHashedPassword)) {
                     loginStatus.setText("Login successful!");
-                    // TODO: Switch to dashboard/home scene
+                    SceneManager.switchTo("home_discover2.fxml");
                 } else {
                     loginStatus.setText("Incorrect password.");
                 }
@@ -76,6 +76,8 @@ public class LoginController {
         } catch (SQLException e) {
             e.printStackTrace();
             loginStatus.setText("Database error.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
