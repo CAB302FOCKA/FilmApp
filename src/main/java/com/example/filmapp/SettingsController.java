@@ -44,4 +44,12 @@ public class SettingsController {
     private void handleBackController() throws IOException {
         SceneManager.switchTo("home_discover2.fxml");
     }
+    @FXML
+    private void handleSettingsButton() {
+        try {
+            SceneManager.switchTo("settings.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

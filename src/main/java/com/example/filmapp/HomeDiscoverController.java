@@ -8,6 +8,8 @@ import javafx.scene.layout.VBox;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.IOException;
+
 public class HomeDiscoverController {
 
     @FXML
@@ -105,6 +107,14 @@ public class HomeDiscoverController {
     private void handleSearchButton() {
         try {
             SceneManager.switchTo("search.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleSettingsButton() {
+        try {
+            SceneManager.switchTo("settings.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
