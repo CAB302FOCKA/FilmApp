@@ -32,7 +32,7 @@ public class TMDB {
 
         this.title = (String) firstResult.get("original_name");
         this.overview = (String) firstResult.get("overview");
-        this.poster_path = (String) firstResult.getOrDefault("poster_path", null);
+        this.poster_path = (String) firstResult.get("poster_path");
         this.id = (Long) firstResult.get("id");
     }
 
