@@ -1,7 +1,6 @@
 package com.example.filmapp;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -14,6 +13,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 
 public class SearchController {
+
     @FXML
     private ComboBox filterComboBox;
     @FXML
@@ -27,60 +27,50 @@ public class SearchController {
 
     @FXML
     public void initialize() {
-        filterComboBox.getItems().addAll("Movies & TV","Movies","TV Shows");
+        filterComboBox.getItems().addAll("Movies & TV", "Movies", "TV Shows");
         filterComboBox.setValue("Movies & TV");
     }
 
     @FXML
     protected void handleSearchButtonAction(ActionEvent event) throws IOException {
-        //Clear previous search results
         flowPane.getChildren().clear();
 
         String mediaType = filterComboBox.getValue().toString();
-
-        switch (mediaType){
-            case "Movies & TV":
-                mediaType = "multi";
-                break;
-            case "Movies":
-                mediaType = "movie";
-                break;
-            case "TV Shows":
-                mediaType = "tv";
-                break;
+        switch (mediaType) {
+            case "Movies & TV": mediaType = "multi"; break;
+            case "Movies": mediaType = "movie"; break;
+            case "TV Shows": mediaType = "tv"; break;
         }
 
         API api = new API();
         JSONArray apiResults = api.searchMediaByTitle(queryTextField.getText(), mediaType);
 
-        //Loop through list of media
+        if (apiResults == null) {
+            queryLabel.setText("No results found or API error.");
+            return;
+        }
+
         for (Object object : apiResults) {
             JSONObject obj = (JSONObject) object;
-
             Media media = MediaFactory.fromJson(obj, mediaType);
-            String posterUrl = media.posterPath;
 
-            // If no image then skip to next item
-            if (posterUrl == null) continue;
+            if (media == null || media.posterPath == null) continue;
 
-            ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + posterUrl);
-
-            // 2:3 aspect ratio for poster
-            int posterLength = 178;
-            int posterHeight = 263;
-
-            imageView.setFitWidth(posterLength);
-            imageView.setFitHeight(posterHeight);
-
+            ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + media.posterPath);
+            imageView.setFitWidth(178);
+            imageView.setFitHeight(263);
             imageView.setPreserveRatio(false);
-            imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent ->  {
+
+            imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                 System.out.println(MessageFormat.format("[{0}] {1}", media.id, media.title));
             });
 
             flowPane.getChildren().add(imageView);
         }
-        queryLabel.setText(MessageFormat.format("Showing results for \"{0}\"", queryTextField.getText()));
+
+        queryLabel.setText(MessageFormat.format("Showing results for \"\"{0}\"\"", queryTextField.getText()));
     }
+
     @FXML
     private void handleBackController() throws IOException {
         SceneManager.switchTo("home_discover2.fxml");

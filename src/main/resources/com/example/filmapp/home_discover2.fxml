@@ -12,18 +12,18 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="800.0" prefWidth="600.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filmapp.HomeDiscoverController">
+<VBox prefHeight="1080.0" prefWidth="1920.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filmapp.HomeDiscoverController">
     <AnchorPane prefHeight="100.0" prefWidth="600.0">
-        <ImageView fitHeight="120" fitWidth="400" preserveRatio="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="15.0">
+        <ImageView fitHeight="120" fitWidth="400" layoutX="820.0" layoutY="15.0" preserveRatio="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="820.0" AnchorPane.rightAnchor="820.8695678710938" AnchorPane.topAnchor="15.0">
             <Image url="@FOCKA Project Planning.png" />
         </ImageView>
     </AnchorPane>
     <HBox alignment="CENTER" prefHeight="40.0" spacing="10">
         <Button text="Menu" />
         <Region HBox.hgrow="ALWAYS" />
-        <Button text="Search" onAction="#handleSearchButton"/>
+        <Button onAction="#handleSearchButton" text="Search" />
         <Region HBox.hgrow="ALWAYS" />
-        <Button text="Account" onAction="#handleSettingsButton"/>
+        <Button onAction="#handleSettingsButton" text="Account" />
     </HBox>
     <Label text="Watchlist:" />
     <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" pannable="true" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">

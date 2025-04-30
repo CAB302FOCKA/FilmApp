@@ -1,4 +1,5 @@
 package com.example.filmapp;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -11,13 +12,17 @@ public class API {
         HttpRequest httpRequest = new HttpRequest(url);
         JSONObject jsonResponse = httpRequest.Fetch();
 
+        if (jsonResponse == null || !jsonResponse.containsKey("results")) {
+            System.err.println("API Error: No results found or bad response.");
+            return null;
+        }
+
         return (JSONArray) jsonResponse.get("results");
     }
 
     public JSONObject getMediaDetails(String mediaType, String id) throws IOException {
         String url = MessageFormat.format("https://api.themoviedb.org/3/{0}/{1}", mediaType, id);
         HttpRequest httpRequest = new HttpRequest(url);
-
         return httpRequest.Fetch();
     }
 
@@ -25,6 +30,11 @@ public class API {
         String url = MessageFormat.format("https://api.themoviedb.org/3/trending/{0}/day", mediaType);
         HttpRequest httpRequest = new HttpRequest(url);
         JSONObject jsonResponse = httpRequest.Fetch();
+
+        if (jsonResponse == null || !jsonResponse.containsKey("results")) {
+            System.err.println("API Error: No trending results found.");
+            return null;
+        }
 
         return (JSONArray) jsonResponse.get("results");
     }
