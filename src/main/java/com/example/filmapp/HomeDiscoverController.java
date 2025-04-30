@@ -119,4 +119,13 @@ public class HomeDiscoverController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void handleAccountButton() {
+        try {
+            SceneManager.switchTo("settings.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

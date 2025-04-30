@@ -14,7 +14,7 @@ public class SceneManager {
     }
 
     public static void switchTo(String fxmlFile) throws IOException {
-        FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlFile));
+        FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/example/filmapp/" + fxmlFile));
         Scene scene = new Scene(loader.load(), 1920, 1080);
         primaryStage.setScene(scene);
         primaryStage.show();

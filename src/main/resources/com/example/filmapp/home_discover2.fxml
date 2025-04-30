@@ -16,7 +16,7 @@
         <Button text="Home" />
         <Button fx:id="searchBtn" onAction="#handleSearchButton" text="Search" />
         <Region HBox.hgrow="ALWAYS" />
-        <Button fx:id="account" text="👤" onAction="#settingsController"/>
+        <Button fx:id="account" text="👤" onAction="#handleAccountButton"/>
     </HBox>
 
     <HBox prefHeight="1000.0" prefWidth="1920.0" spacing="30">
