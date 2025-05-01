@@ -104,7 +104,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.example.filmapp/com.example.filmapp.HelloApplication</mainClass>
+              <mainClass>com.example.filmapp/com.example.filmapp.App</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class movie_card_controller {
+public class MovieCardController {
     @FXML private Label titleLabel;
     @FXML private Label descriptionLabel;
     @FXML private ImageView imageView;
