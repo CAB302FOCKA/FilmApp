@@ -6,13 +6,14 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filmapp.controller.MediaDetailsController">
   <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="754.0" prefWidth="725.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1700.0" prefWidth="1920.0">
          <children>
             <VBox prefHeight="1080.0" prefWidth="1920.0">
                <children>
@@ -46,7 +47,10 @@
                            <font>
                               <Font size="24.0" />
                            </font></Label>
-                        <ScrollPane layoutY="59.0" prefHeight="130.0" prefWidth="602.0" vbarPolicy="NEVER" vmax="0.0" />
+                        <ScrollPane layoutY="59.0" prefHeight="263.0" prefWidth="800.0" vbarPolicy="NEVER" vmax="0.0">
+                           <content>
+                              <FlowPane fx:id="castContainer" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" />
+                           </content></ScrollPane>
                      </children>
                      <opaqueInsets>
                         <Insets />
@@ -55,21 +59,35 @@
                         <Insets left="60.0" />
                      </VBox.margin>
                   </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="351.0" prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane layoutX="10.0" layoutY="351.0" prefHeight="600.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="14.0" layoutY="24.0" text="Similar to this...">
                            <font>
                               <Font size="24.0" />
                            </font></Label>
-                        <ScrollPane layoutY="59.0" prefHeight="144.0" prefWidth="600.0" vbarPolicy="NEVER" vmax="0.0">
+                        <ScrollPane layoutY="59.0" prefHeight="263.0" prefWidth="800.0" vbarPolicy="NEVER" vmax="0.0">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="141.0" prefWidth="596.0" />
+                              <FlowPane fx:id="similarToContainer" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" />
                            </content>
                         </ScrollPane>
                      </children>
                      <VBox.margin>
                         <Insets left="60.0" />
                      </VBox.margin>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="785.0" prefHeight="600.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="60.0" layoutY="24.0" text="Recommendations">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane layoutX="60.0" layoutY="59.0" prefHeight="263.0" prefWidth="800.0" vbarPolicy="NEVER" vmax="0.0">
+                           <content>
+                              <FlowPane fx:id="recommendationsContainer" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
                   </AnchorPane>
                </children>
             </VBox>

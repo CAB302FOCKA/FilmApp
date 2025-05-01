@@ -40,4 +40,30 @@ public class API {
 
         return (JSONArray) jsonResponse.get("results");
     }
+
+    public JSONArray getSimilarToMovieList(String mediaId) throws IOException {
+        String url = MessageFormat.format("https://api.themoviedb.org/3/movie/{0}/similar", mediaId);
+        HttpRequest httpRequest = new HttpRequest(url);
+        JSONObject jsonResponse = httpRequest.Fetch();
+
+        if (jsonResponse == null || !jsonResponse.containsKey("results")) {
+            System.err.println("API Error: No trending results found.");
+            return null;
+        }
+
+        return (JSONArray) jsonResponse.get("results");
+    }
+
+    public JSONArray getRecommendationsList(String mediaId) throws IOException {
+        String url = MessageFormat.format("https://api.themoviedb.org/3/movie/{0}/recommendations", mediaId);
+        HttpRequest httpRequest = new HttpRequest(url);
+        JSONObject jsonResponse = httpRequest.Fetch();
+
+        if (jsonResponse == null || !jsonResponse.containsKey("results")) {
+            System.err.println("API Error: No trending results found.");
+            return null;
+        }
+
+        return (JSONArray) jsonResponse.get("results");
+    }
 }
