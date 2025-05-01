@@ -1,26 +1,19 @@
 package com.example.filmapp;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class MediaDetailsController {
-
-    private final String movieTitle;
-    private final double rating;
-    private final String overview;
-    private final String posterPath;
-
-    public MediaDetailsController(String movieTitle, double rating, String overview, String posterPath){
-        this.movieTitle = movieTitle;
-        this.rating = Math.round(rating * 100.0) / 100.0; // round to 2 decmial places
-        this.overview = overview;
-        this.posterPath = posterPath;
-    }
+    Media selectedMedia = AppState.getSelectedMedia();
 
     @FXML
     private Label titleText;
@@ -32,25 +25,18 @@ public class MediaDetailsController {
     private Label ratingText;
 
     @FXML
+    private ImageView posterImage;
+
+    @FXML
     public void initialize(){
-        titleText.setText(movieTitle);
-        overviewText.setText(overview);
-        ratingText.setText(String.format("%s/10",rating));
+        titleText.setText(selectedMedia.title);
+        overviewText.setText(selectedMedia.overview);
+        ratingText.setText(String.format("%s/10",selectedMedia.rating));
+        posterImage.setImage(new Image("https://image.tmdb.org/t/p/w200" + selectedMedia.posterPath));
     }
 
-    public void launch(Stage stage) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TvMovieDetailsPage.fxml"));
-        fxmlLoader.setController(this);
-
-        Scene scene;
-        try {
-            scene = new Scene(fxmlLoader.load(), 600, 455);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        stage.setTitle("TV/Movie Details");
-        stage.setScene(scene);
-        stage.show();
+    @FXML
+    public void onBackButtonClicked(ActionEvent actionEvent) throws IOException {
+        SceneManager.switchTo("search.fxml");
     }
 }

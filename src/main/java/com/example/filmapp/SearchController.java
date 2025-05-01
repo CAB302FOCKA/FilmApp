@@ -2,10 +2,12 @@ package com.example.filmapp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -62,13 +64,18 @@ public class SearchController {
             imageView.setPreserveRatio(false);
 
             imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                System.out.println(MessageFormat.format("[{0}] {1}", media.id, media.title));
+                AppState.setSelectedMedia(media);
+                try {
+                    SceneManager.switchTo("TvMovieDetailsPage.fxml");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             });
 
             flowPane.getChildren().add(imageView);
         }
 
-        queryLabel.setText(MessageFormat.format("Showing results for \"\"{0}\"\"", queryTextField.getText()));
+        queryLabel.setText(MessageFormat.format("Showing results for \"{0}\"", queryTextField.getText()));
     }
 
     @FXML
