@@ -24,8 +24,6 @@ public class SearchController {
     private FlowPane flowPane;
     @FXML
     private TextField queryTextField;
-    @FXML
-    private ComboBox sortComboBox;
 
     @FXML
     public void initialize() {
