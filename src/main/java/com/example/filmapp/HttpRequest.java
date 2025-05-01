@@ -8,6 +8,9 @@ import org.json.simple.JSONValue;
 import java.io.IOException;
 import java.text.MessageFormat;
 
+/**
+ Handles the direct HTTP request to the TMDB API. Contains configuration headers for API requests.
+ */
 public class HttpRequest
 {
     private static final OkHttpClient client = new OkHttpClient();

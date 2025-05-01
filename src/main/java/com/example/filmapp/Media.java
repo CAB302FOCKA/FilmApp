@@ -1,5 +1,8 @@
 package com.example.filmapp;
 
+/**
+ Standard structure for all items retrieved from the TMDB API
+ */
 public class Media {
     protected String id;
     protected String title;

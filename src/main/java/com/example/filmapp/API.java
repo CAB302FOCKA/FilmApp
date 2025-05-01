@@ -2,10 +2,12 @@ package com.example.filmapp;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import java.io.IOException;
 import java.text.MessageFormat;
 
+/**
+ Responsible for sending requests to the TMDB API and handling the response.
+ */
 public class API {
     public JSONArray searchMediaByTitle(String titleQuery, String mediaType) throws IOException {
         String url = MessageFormat.format("https://api.themoviedb.org/3/search/{0}?query={1}&include_adult=false&language=en-US&page=1", mediaType, titleQuery);

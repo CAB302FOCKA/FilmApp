@@ -3,6 +3,9 @@ package com.example.filmapp;
 import org.json.simple.JSONObject;
 
 public class MediaFactory {
+    /**
+     Responsible for handling JSON objects from the TMDB API response and converting them into Media objects that can be easily used.
+     */
     public static Media fromJson(JSONObject json, String mediaType) {
         try {
             String id = String.valueOf(json.get("id"));
