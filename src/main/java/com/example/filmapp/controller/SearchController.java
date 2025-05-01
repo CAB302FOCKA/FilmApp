@@ -1,13 +1,16 @@
-package com.example.filmapp;
+package com.example.filmapp.controller;
 
+import com.example.filmapp.model.Media;
+import com.example.filmapp.factory.MediaFactory;
+import com.example.filmapp.service.API;
+import com.example.filmapp.state.AppState;
+import com.example.filmapp.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -54,9 +57,9 @@ public class SearchController {
             JSONObject obj = (JSONObject) object;
             Media media = MediaFactory.fromJson(obj, mediaType);
 
-            if (media == null || media.posterPath == null) continue;
+            if (media == null || media.getPosterPath() == null) continue;
 
-            ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + media.posterPath);
+            ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + media.getPosterPath());
             imageView.setFitWidth(178);
             imageView.setFitHeight(263);
             imageView.setPreserveRatio(false);

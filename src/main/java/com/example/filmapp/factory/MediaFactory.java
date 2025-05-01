@@ -1,5 +1,6 @@
-package com.example.filmapp;
+package com.example.filmapp.factory;
 
+import com.example.filmapp.model.Media;
 import org.json.simple.JSONObject;
 
 public class MediaFactory {

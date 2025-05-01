@@ -1,5 +1,9 @@
-package com.example.filmapp;
+package com.example.filmapp.controller;
 
+import com.example.filmapp.model.Media;
+import com.example.filmapp.factory.MediaFactory;
+import com.example.filmapp.service.API;
+import com.example.filmapp.util.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -7,8 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import java.io.IOException;
 
 public class HomeDiscoverController {
 
@@ -61,7 +63,7 @@ public class HomeDiscoverController {
             for (int i = 0; i < Math.min(5, results.size()); i++) {
                 JSONObject json = (JSONObject) results.get(i);
                 Media media = MediaFactory.fromJson(json, "movie");
-                if (media != null && media.posterPath != null) {
+                if (media != null && media.getPosterPath() != null) {
                     trendingBox.getChildren().add(buildCard(media));
                 }
             }
@@ -75,7 +77,7 @@ public class HomeDiscoverController {
             API api = new API();
             JSONObject json = api.getMediaDetails(type, id);
             Media media = MediaFactory.fromJson(json, type);
-            if (media != null && media.posterPath != null) {
+            if (media != null && media.getPosterPath() != null) {
                 targetBox.getChildren().add(buildCard(media));
             }
         } catch (Exception e) {
@@ -84,14 +86,14 @@ public class HomeDiscoverController {
     }
 
     private HBox buildCard(Media media) {
-        ImageView poster = new ImageView("https://image.tmdb.org/t/p/w200" + media.posterPath);
+        ImageView poster = new ImageView("https://image.tmdb.org/t/p/w200" + media.getPosterPath());
         poster.setFitWidth(80);
         poster.setFitHeight(120);
 
-        Label title = new Label(media.title);
+        Label title = new Label(media.getTitle());
         title.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
 
-        Label desc = new Label(media.overview);
+        Label desc = new Label(media.getOverview());
         desc.setWrapText(true);
         desc.setMaxWidth(300);
 

@@ -1,4 +1,4 @@
-package com.example.filmapp;
+package com.example.filmapp.model;
 
 /**
  Standard structure for all items retrieved from the TMDB API
@@ -16,5 +16,26 @@ public class Media {
         this.overview = overview;
         this.posterPath = posterPath;
         this.rating = rating;
+    }
+
+    // Getters
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public double getRating() {
+        return rating;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.filmapp;
+package com.example.filmapp.model;
 
 /**
  Unused class intended to serve as a subclass to the Media class with Movie-specific attributes

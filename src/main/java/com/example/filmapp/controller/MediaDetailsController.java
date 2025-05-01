@@ -1,14 +1,13 @@
-package com.example.filmapp;
+package com.example.filmapp.controller;
 
+import com.example.filmapp.model.Media;
+import com.example.filmapp.state.AppState;
+import com.example.filmapp.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -29,10 +28,10 @@ public class MediaDetailsController {
 
     @FXML
     public void initialize(){
-        titleText.setText(selectedMedia.title);
-        overviewText.setText(selectedMedia.overview);
-        ratingText.setText(String.format("%s/10",selectedMedia.rating));
-        posterImage.setImage(new Image("https://image.tmdb.org/t/p/w200" + selectedMedia.posterPath));
+        titleText.setText(selectedMedia.getTitle());
+        overviewText.setText(selectedMedia.getOverview());
+        ratingText.setText(String.format("%s/10",selectedMedia.getRating()));
+        posterImage.setImage(new Image("https://image.tmdb.org/t/p/w200" + selectedMedia.getPosterPath()));
     }
 
     @FXML

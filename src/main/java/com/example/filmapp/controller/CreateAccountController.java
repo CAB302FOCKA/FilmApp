@@ -1,5 +1,7 @@
-package com.example.filmapp;
+package com.example.filmapp.controller;
 
+import com.example.filmapp.service.DatabaseConnection;
+import com.example.filmapp.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +22,7 @@ import java.sql.SQLException;
  * Class to create user account. Pulls userName, userEmail and userPass and uploads it to database.
  * Before uploading to the database the userPass is hashed to ensure user security
  */
-public class CreateAccount {
+public class CreateAccountController {
 
     @FXML
     private TextField myUsername;

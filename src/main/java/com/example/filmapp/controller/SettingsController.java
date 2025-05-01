@@ -1,5 +1,6 @@
-package com.example.filmapp;
+package com.example.filmapp.controller;
 
+import com.example.filmapp.util.SceneManager;
 import javafx.fxml.FXML;
 
 import java.io.IOException;

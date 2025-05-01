@@ -1,4 +1,6 @@
-package com.example.filmapp;
+package com.example.filmapp.state;
+
+import com.example.filmapp.model.Media;
 
 public class AppState {
     private static Media selectedMedia;

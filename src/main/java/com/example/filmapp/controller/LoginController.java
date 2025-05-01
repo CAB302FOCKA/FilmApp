@@ -1,5 +1,7 @@
-package com.example.filmapp;
+package com.example.filmapp.controller;
 
+import com.example.filmapp.service.DatabaseConnection;
+import com.example.filmapp.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

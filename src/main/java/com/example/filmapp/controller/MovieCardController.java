@@ -1,4 +1,4 @@
-package com.example.filmapp;
+package com.example.filmapp.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

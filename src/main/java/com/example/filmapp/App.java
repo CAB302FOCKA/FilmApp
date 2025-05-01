@@ -1,5 +1,6 @@
 package com.example.filmapp;
 
+import com.example.filmapp.util.SceneManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -9,6 +10,12 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
+        stage.setFullScreen(true);
+
+//        Temporary fix for resolution issue on small screens with DPI scaling
+//        stage.setWidth(1280);
+//        stage.setHeight(720);
+
         SceneManager.setStage(stage);
         SceneManager.switchTo("login.fxml");
     }

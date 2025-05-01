@@ -1,4 +1,4 @@
-package com.example.filmapp;
+package com.example.filmapp.util;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

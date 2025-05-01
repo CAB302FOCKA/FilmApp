@@ -10,7 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.filmapp.SettingsController">
+            fx:controller="com.example.filmapp.controller.SettingsController">
 
     <top>
         <Label text="Settings" style="-fx-font-weight: bold; -fx-font-size: 32px;"

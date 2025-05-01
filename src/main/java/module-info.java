@@ -10,4 +10,16 @@ module com.example.filmapp {
 
     opens com.example.filmapp to javafx.fxml;
     exports com.example.filmapp;
+    exports com.example.filmapp.state;
+    opens com.example.filmapp.state to javafx.fxml;
+    exports com.example.filmapp.factory;
+    opens com.example.filmapp.factory to javafx.fxml;
+    exports com.example.filmapp.util;
+    opens com.example.filmapp.util to javafx.fxml;
+    exports com.example.filmapp.service;
+    opens com.example.filmapp.service to javafx.fxml;
+    exports com.example.filmapp.controller;
+    opens com.example.filmapp.controller to javafx.fxml;
+    exports com.example.filmapp.model;
+    opens com.example.filmapp.model to javafx.fxml;
 }
