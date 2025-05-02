@@ -1,0 +1,35 @@
+package com.example.filmapp.service;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import java.io.IOException;
+
+/**
+ Handles the direct HTTP request to the TMDB API. Contains configuration headers for API requests.
+ */
+public class HttpRequest
+{
+    private static final OkHttpClient client = new OkHttpClient();
+    private final String url;
+
+    public HttpRequest(String url)
+    {
+        this.url = url;
+    }
+
+    public JSONObject Fetch() throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .addHeader("accept", "application/json")
+                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjFhNDZmZTAzMDYzMTkxYzIxZmRlNDFjZDNjNGY3YSIsIm5iZiI6MTc0MjkwNDcyNS44MjMsInN1YiI6IjY3ZTI5ZDk1MTZhM2M1YzIyNGYwNjUzMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XkcGqKO9RPDcTHisYqAWnXG__T3ZQuggbDABN8xYv5Q")
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            return (JSONObject) JSONValue.parse(response.body().string());
+        }
+    }
+}

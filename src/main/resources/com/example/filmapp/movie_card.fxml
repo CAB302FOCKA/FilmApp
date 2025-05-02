@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.filmapp.controller.MovieCardController" prefWidth="300" spacing="10" >
+    <ImageView fx:id="imageView" fitWidth="100" fitHeight="150" preserveRatio="true" />
+    <VBox spacing="5">
+        <Label fx:id="titleLabel" style="-fx-font-size: 14pt; -fx-font-weight: bold;" wrapText="true" />
+        <Label fx:id="descriptionLabel" style="-fx-font-size: 10pt;" wrapText="true" maxWidth="180"/>
+    </VBox>
+</HBox>
