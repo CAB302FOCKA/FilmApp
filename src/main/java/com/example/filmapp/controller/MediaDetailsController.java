@@ -42,6 +42,9 @@ public class MediaDetailsController {
     private FlowPane recommendationsContainer;
 
     @FXML
+    private Label mediaLabel;
+
+    @FXML
     public void initialize(){
         titleText.setText(selectedMedia.getTitle());
         overviewText.setText(selectedMedia.getOverview());
