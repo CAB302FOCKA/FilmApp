@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class MediaFactory {
     /**
-     Responsible for handling JSON objects from the TMDB API response and converting them into Media objects that can be easily used.
+     * Responsible for handling JSON objects from the TMDB API response and converting them into Media objects that can be easily used.
      */
     public static Media fromJson(JSONObject json, String mediaType) {
         try {
@@ -32,7 +32,8 @@ public class MediaFactory {
 
             String overview = (String) json.getOrDefault("overview", "No overview available.");
             String posterPath = (String) json.getOrDefault("poster_path", null);
-            int runtime = (Integer) json.getOrDefault("runtime", 0);
+            Object runtimeObj = json.get("runtime");
+            int runtime = (runtimeObj instanceof Number) ? ((Number) runtimeObj).intValue() : 0;
             double rating = json.get("vote_average") instanceof Number ? ((Number) json.get("vote_average")).doubleValue() : 0.0;
 
             ArrayList<String> genres = new ArrayList<>();
@@ -46,17 +47,27 @@ public class MediaFactory {
             }
 
             if (mediaType.equalsIgnoreCase("movie")) {
-                return new Movie(id, title, overview, posterPath, rating, runtime, genres);
+                Movie movie = new Movie(id, title, overview, posterPath, rating, runtime, genres);
+                movie.setMediaType("movie");
+                return movie;
             } else if (mediaType.equalsIgnoreCase("tv")) {
-                return new TVSeries(id, title, overview, posterPath, rating, runtime, genres);
+                TVSeries tv = new TVSeries(id, title, overview, posterPath, rating, runtime, genres);
+                tv.setMediaType("tv");
+                return tv;
             } else {
                 mediaType = (String) json.getOrDefault("media_type", null);
-                if (mediaType.equalsIgnoreCase("movie")) {
-                    return new Movie(id, title, overview, posterPath, rating, runtime, genres);
-                } else if (mediaType.equalsIgnoreCase("tv")) {
-                    return new TVSeries(id, title, overview, posterPath, rating, runtime, genres);
+                if ("movie".equalsIgnoreCase(mediaType)) {
+                    Movie movie = new Movie(id, title, overview, posterPath, rating, runtime, genres);
+                    movie.setMediaType("movie");
+                    return movie;
+                } else if ("tv".equalsIgnoreCase(mediaType)) {
+                    TVSeries tv = new TVSeries(id, title, overview, posterPath, rating, runtime, genres);
+                    tv.setMediaType("tv");
+                    return tv;
                 } else {
-                    return new Media(id, title, overview, posterPath, rating, runtime, genres);
+                    Media media = new Media(id, title, overview, posterPath, rating, runtime, genres);
+                    media.setMediaType(mediaType); // handles edge cases or unknowns
+                    return media;
                 }
             }
         } catch (Exception e) {

@@ -3,13 +3,34 @@ package com.example.filmapp.state;
 import com.example.filmapp.model.Media;
 
 public class AppState {
-    private static Media selectedMedia;
+    private static AppState instance;
+    private Media selectedMedia;
+    private String currentUserId;
 
-    public static void setSelectedMedia(Media media) {
-        selectedMedia = media;
+    private AppState() {
+        // Private constructor to enforce singleton
     }
 
-    public static Media getSelectedMedia() {
+    public static AppState getInstance() {
+        if (instance == null) {
+            instance = new AppState();
+        }
+        return instance;
+    }
+
+    public Media getSelectedMedia() {
         return selectedMedia;
+    }
+
+    public void setSelectedMedia(Media media) {
+        this.selectedMedia = media;
+    }
+
+    public String getCurrentUserId() {
+        return currentUserId;
+    }
+
+    public void setCurrentUserId(String currentUserId) {
+        this.currentUserId = currentUserId;
     }
 }

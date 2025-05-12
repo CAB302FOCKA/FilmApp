@@ -24,6 +24,9 @@ public class Media {
         this.runtime = runtime;
         this.genres = genres;
     }
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
 
     // Getters
     public String getId() {

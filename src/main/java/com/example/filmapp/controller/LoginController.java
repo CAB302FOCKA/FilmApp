@@ -1,6 +1,7 @@
 package com.example.filmapp.controller;
 
 import com.example.filmapp.service.DatabaseConnection;
+import com.example.filmapp.state.AppState;
 import com.example.filmapp.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,10 +36,12 @@ public class LoginController {
 
     @FXML
     private Label accCreate;
+
     @FXML
     public void initialize() {
         System.out.println("LoginController initialized!");
     }
+
     @FXML
     private void handleCreateAccountRedirect(MouseEvent event) throws IOException {
         SceneManager.switchTo("create-account.fxml");
@@ -54,7 +57,7 @@ public class LoginController {
             return;
         }
 
-        String query = "SELECT userPass FROM user WHERE userEmail = ?";
+        String query = "SELECT userID, userPass FROM user WHERE userEmail = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -66,7 +69,11 @@ public class LoginController {
                 String storedHashedPassword = resultSet.getString("userPass");
 
                 if (BCrypt.checkpw(password, storedHashedPassword)) {
+                    String userIdFromDatabase = resultSet.getString("userID");
+                    AppState.getInstance().setCurrentUserId(userIdFromDatabase);
+
                     loginStatus.setText("Login successful!");
+                    System.out.println("Logged in as user ID: " + userIdFromDatabase);
                     SceneManager.switchTo("home_discover2.fxml");
                 } else {
                     loginStatus.setText("Incorrect password.");

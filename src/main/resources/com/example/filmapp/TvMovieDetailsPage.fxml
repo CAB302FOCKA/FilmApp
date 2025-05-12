@@ -29,6 +29,7 @@
                               <Font size="14.0" />
                            </font></Label>
                         <Button layoutX="349.0" layoutY="294.0" mnemonicParsing="false" text="Play Trailer" />
+                        <Button fx:id="addToWatchlistButton" layoutX="435.0" layoutY="294.0" onAction="#handleAddToWatchlist" text="Add to Watchlist" />
                         <Button fx:id="backButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButtonClicked" text="&lt;" />
                         <Label fx:id="mediaLabel" layoutX="423.0" layoutY="105.0">
                            <font>

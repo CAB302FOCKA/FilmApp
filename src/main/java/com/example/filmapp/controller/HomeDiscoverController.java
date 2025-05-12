@@ -3,6 +3,8 @@ package com.example.filmapp.controller;
 import com.example.filmapp.model.Media;
 import com.example.filmapp.factory.MediaFactory;
 import com.example.filmapp.service.API;
+import com.example.filmapp.service.DatabaseConnection;
+import com.example.filmapp.state.AppState;
 import com.example.filmapp.util.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,6 +14,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class HomeDiscoverController {
 
@@ -28,21 +35,35 @@ public class HomeDiscoverController {
     public void initialize() {
         System.out.println("HomeDiscoverController initialized");
 
-        loadWatchlist(); // Hardcoded
+        loadWatchlist();
         loadForYou();    // Random IDs
         loadTrending();  // From API
     }
 
     private void loadWatchlist() {
-        Object[][] watchlist = {
-                {"tv", "1396"},     // Breaking Bad
-                {"tv", "1398"},     // Game of Thrones
-                {"tv", "1668"},     // Friends
-        };
-        for (Object[] entry : watchlist) {
-            addMediaCard((String) entry[0], (String) entry[1], watchlistBox);
+        String userId = AppState.getInstance().getCurrentUserId();
+
+        String query = "SELECT mediaType, mediaID FROM watchlist WHERE userID = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String mediaType = rs.getString("mediaType");
+                String mediaId = rs.getString("mediaID");
+                System.out.println("📺 Found watchlist item: " + mediaType + " - " + mediaId);
+                addMediaCard(mediaType, mediaId, watchlistBox);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Failed to load watchlist for user " + userId);
+            e.printStackTrace();
         }
     }
+
 
     private void loadForYou() {
         Object[][] suggestions = {
@@ -65,7 +86,7 @@ public class HomeDiscoverController {
                 JSONObject json = (JSONObject) results.get(i);
                 Media media = MediaFactory.fromJson(json, "movie");
                 if (media != null && media.getPosterPath() != null) {
-                    trendingBox.getChildren().add(buildCard(media));
+                    trendingBox.getChildren().add(buildCard(media, false));
                 }
             }
         } catch (Exception e) {
@@ -79,14 +100,16 @@ public class HomeDiscoverController {
             JSONObject json = api.getMediaDetails(type, id);
             Media media = MediaFactory.fromJson(json, type);
             if (media != null && media.getPosterPath() != null) {
-                targetBox.getChildren().add(buildCard(media));
+                HBox card = buildCard(media, targetBox == watchlistBox); // show remove only on watchlist
+                targetBox.getChildren().add(card);
             }
         } catch (Exception e) {
             System.err.println("Failed to load: " + id);
         }
     }
 
-    private HBox buildCard(Media media) {
+
+    private HBox buildCard(Media media, boolean includeRemoveButton) {
         ImageView poster = new ImageView();
         Image image = new Image("https://image.tmdb.org/t/p/w200" + media.getPosterPath(), true);
         poster.setImage(image);
@@ -105,8 +128,43 @@ public class HomeDiscoverController {
 
         HBox card = new HBox(poster, infoBox);
         card.setSpacing(15);
+
+        if (includeRemoveButton) {
+            javafx.scene.control.Button removeButton = new javafx.scene.control.Button("Remove");
+            removeButton.setOnAction(e -> {
+                removeFromWatchlist(media.getId(), media.getMediaType());
+                watchlistBox.getChildren().remove(card);
+            });
+            infoBox.getChildren().add(removeButton);
+        }
+
         return card;
     }
+
+
+    private void removeFromWatchlist(String mediaId, String mediaType) {
+        String userId = AppState.getInstance().getCurrentUserId();
+
+        String sql = "DELETE FROM watchlist WHERE userID = ? AND mediaID = ? AND mediaType = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, userId);
+            stmt.setString(2, mediaId);
+            stmt.setString(3, mediaType);
+
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
+                System.out.println("Removed from watchlist: " + mediaId);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Could not remove from watchlist");
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void handleSearchButton() {

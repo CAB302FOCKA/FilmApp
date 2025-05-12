@@ -71,7 +71,7 @@ public class SearchController {
             imageView.setPreserveRatio(false);
 
             imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                AppState.setSelectedMedia(media);
+                AppState.getInstance().setSelectedMedia(media);
                 try {
                     SceneManager.switchTo("TvMovieDetailsPage.fxml");
                 } catch (IOException ex) {

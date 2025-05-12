@@ -8,6 +8,11 @@ import com.example.filmapp.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import com.example.filmapp.service.DatabaseConnection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -18,7 +23,7 @@ import org.json.simple.JSONObject;
 import java.io.IOException;
 
 public class MediaDetailsController {
-    Media selectedMedia = AppState.getSelectedMedia();
+    Media selectedMedia = AppState.getInstance().getSelectedMedia();
 
     @FXML
     private Label titleText;
@@ -43,6 +48,29 @@ public class MediaDetailsController {
 
     @FXML
     private Label mediaLabel;
+
+    @FXML
+    private Button addToWatchlistButton;
+
+    @FXML
+    private void handleAddToWatchlist() {
+        String userId = AppState.getInstance().getCurrentUserId();
+        String mediaId = selectedMedia.getId();
+        String mediaType = selectedMedia.getMediaType();
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "INSERT INTO watchlist (userID, mediaID, mediaType) VALUES (?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, userId);
+            stmt.setString(2, mediaId);
+            stmt.setString(3, mediaType);
+            stmt.executeUpdate();
+            System.out.println("Added to watchlist.");
+        } catch (SQLException e) {
+            System.out.println("Failed to add to watchlist.");
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void initialize(){
@@ -73,7 +101,7 @@ public class MediaDetailsController {
                     imageView.setPreserveRatio(false);
 
                     imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                        AppState.setSelectedMedia(media);
+                        AppState.getInstance().setSelectedMedia(media);
                         try {
                             SceneManager.switchTo("TvMovieDetailsPage.fxml");
                         } catch (IOException ex) {
@@ -108,7 +136,7 @@ public class MediaDetailsController {
                     imageView.setPreserveRatio(false);
 
                     imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                        AppState.setSelectedMedia(media);
+                        AppState.getInstance().setSelectedMedia(media);
                         try {
                             SceneManager.switchTo("TvMovieDetailsPage.fxml");
                         } catch (IOException ex) {
