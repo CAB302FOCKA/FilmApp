@@ -48,6 +48,9 @@ public class SearchController {
 
         API api = new API();
         JSONArray apiResults = api.searchMediaByTitle(queryTextField.getText(), mediaType);
+        System.out.println("Total results from API: " + apiResults.size());
+
+        int shownCount = 0;
 
         if (apiResults == null) {
             queryLabel.setText("No results found or API error.");
@@ -77,9 +80,11 @@ public class SearchController {
             });
 
             flowPane.getChildren().add(imageView);
+            shownCount++;
         }
 
         queryLabel.setText(MessageFormat.format("Showing results for \"{0}\"", queryTextField.getText()));
+        System.out.println("Showing " + shownCount + "/" + apiResults.size() + " results.");
     }
 
     @FXML
