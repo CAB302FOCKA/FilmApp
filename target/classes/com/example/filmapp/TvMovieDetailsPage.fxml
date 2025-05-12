@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filmapp.controller.MediaDetailsController">
+  <content>
+    <AnchorPane prefHeight="768.0" prefWidth="1024.0">
+         <children>
+            <VBox prefHeight="1080.0" prefWidth="1920.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b1b1b" height="141.0" stroke="BLACK" strokeType="INSIDE" width="1920.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="titleText" layoutX="343.0" layoutY="47.0" text="Title">
+                           <font>
+                              <Font name="System Bold" size="48.0" />
+                           </font></Label>
+                        <Label fx:id="overviewText" alignment="TOP_LEFT" layoutX="349.0" layoutY="149.0" prefHeight="145.0" prefWidth="430.0" text="Film Description - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac quam dapibus, placerat sem ut, aliquam lacus. Orci varius natoque  penatibus et magnis dis parturient montes, nascetur ridiculus mus.  Aliquam blandit urna odio. Etiam odio nulla, bibendum eu arcu quis,  egestas efficitur libero. Proin a nibh nibh.   " wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
+                        <Button layoutX="349.0" layoutY="294.0" mnemonicParsing="false" text="Play Trailer" />
+                        <Button fx:id="backButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButtonClicked" text="&lt;" />
+                        <Label fx:id="mediaLabel" layoutX="423.0" layoutY="105.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Label>
+                        <Label fx:id="ratingText" layoutX="349.0" layoutY="105.0" text="Rating">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Label>
+                        <ImageView fx:id="posterImage" fitHeight="384.0" fitWidth="260.0" layoutX="71.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="24.0" text="Cast">
+                           <font>
+                              <Font size="24.0" />
+                           </font></Label>
+                        <ScrollPane layoutY="59.0" prefHeight="263.0" prefWidth="800.0" vbarPolicy="NEVER" vmax="0.0">
+                           <content>
+                              <FlowPane fx:id="castContainer" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" />
+                           </content></ScrollPane>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="60.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+                  <AnchorPane layoutX="10.0" layoutY="351.0" prefHeight="600.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="24.0" text="Similar to this...">
+                           <font>
+                              <Font size="24.0" />
+                           </font></Label>
+                        <ScrollPane layoutY="59.0" prefHeight="263.0" prefWidth="800.0" vbarPolicy="NEVER" vmax="0.0">
+                           <content>
+                              <FlowPane fx:id="similarToContainer" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="60.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="785.0" prefHeight="600.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="60.0" layoutY="24.0" text="Recommendations">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane layoutX="60.0" layoutY="59.0" prefHeight="263.0" prefWidth="800.0" vbarPolicy="NEVER" vmax="0.0">
+                           <content>
+                              <FlowPane fx:id="recommendationsContainer" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children></AnchorPane>
+  </content>
+</ScrollPane>

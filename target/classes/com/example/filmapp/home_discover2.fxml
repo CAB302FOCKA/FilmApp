@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="768.0" prefWidth="1024.0" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filmapp.controller.HomeDiscoverController">
+
+    <HBox alignment="CENTER" spacing="20">
+        <Button fx:id="settingsBtn" onAction="#handleSettingsButton" text="⚙" />
+
+        <Region HBox.hgrow="ALWAYS" />
+        <Button text="Home" />
+        <Button fx:id="searchBtn" onAction="#handleSearchButton" text="Search" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button fx:id="account" onAction="#handleAccountButton" text="👤" />
+    </HBox>
+
+    <HBox prefHeight="1000.0" prefWidth="1920.0" spacing="30">
+        <!-- Watchlist Column -->
+        <VBox prefWidth="600" spacing="10" HBox.hgrow="ALWAYS">
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Watchlist" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                <VBox fx:id="watchlistBox" spacing="15" style="-fx-padding: 10;" />
+            </ScrollPane>
+        </VBox>
+
+        <!-- For You Column -->
+        <VBox prefWidth="600" spacing="10" HBox.hgrow="ALWAYS">
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="For You" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                <VBox fx:id="forYouBox" spacing="15" style="-fx-padding: 10;" />
+            </ScrollPane>
+        </VBox>
+
+        <!-- Trending Column -->
+        <VBox prefWidth="600" spacing="10" HBox.hgrow="ALWAYS">
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Trending Movies" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                <VBox fx:id="trendingBox" spacing="15" style="-fx-padding: 10;" />
+            </ScrollPane>
+        </VBox>
+    </HBox>
+</VBox>
