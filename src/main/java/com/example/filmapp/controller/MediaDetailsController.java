@@ -49,7 +49,7 @@ public class MediaDetailsController {
         titleText.setText(selectedMedia.getTitle());
         overviewText.setText(selectedMedia.getOverview());
         ratingText.setText(String.format("%s/10",selectedMedia.getRating()));
-        posterImage.setImage(new Image("https://image.tmdb.org/t/p/w200" + selectedMedia.getPosterPath()));
+        posterImage.setImage(new Image("https://image.tmdb.org/t/p/w200" + selectedMedia.getPosterPath(), true));
 
         populateSimilarToContainer();
         populateRecommendationsContainer();

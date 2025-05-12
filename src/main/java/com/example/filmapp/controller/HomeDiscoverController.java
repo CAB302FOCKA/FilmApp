@@ -6,6 +6,7 @@ import com.example.filmapp.service.API;
 import com.example.filmapp.util.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -86,7 +87,9 @@ public class HomeDiscoverController {
     }
 
     private HBox buildCard(Media media) {
-        ImageView poster = new ImageView("https://image.tmdb.org/t/p/w200" + media.getPosterPath());
+        ImageView poster = new ImageView();
+        Image image = new Image("https://image.tmdb.org/t/p/w200" + media.getPosterPath(), true);
+        poster.setImage(image);
         poster.setFitWidth(80);
         poster.setFitHeight(120);
 
