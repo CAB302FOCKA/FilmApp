@@ -10,10 +10,9 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-
-
-        SceneManager.setStage(stage);
+        SceneManager.initialize(stage);
         SceneManager.switchTo("login.fxml");
+        stage.show();
     }
 
     public static void main(String[] args) {
