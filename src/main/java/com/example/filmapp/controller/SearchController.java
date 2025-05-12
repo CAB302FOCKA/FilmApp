@@ -8,6 +8,7 @@ import com.example.filmapp.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -59,7 +60,9 @@ public class SearchController {
 
             if (media == null || media.getPosterPath() == null) continue;
 
-            ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + media.getPosterPath());
+            ImageView imageView = new ImageView();
+            Image image = new Image("https://image.tmdb.org/t/p/w500" + media.getPosterPath(), true);
+            imageView.setImage(image);
             imageView.setFitWidth(178);
             imageView.setFitHeight(263);
             imageView.setPreserveRatio(false);
