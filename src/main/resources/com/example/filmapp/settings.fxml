@@ -3,28 +3,24 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.filmapp.controller.SettingsController">
+<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.filmapp.controller.SettingsController">
 
     <top>
-        <Label text="Settings" style="-fx-font-weight: bold; -fx-font-size: 32px;"
-               maxWidth="Infinity" alignment="CENTER" />
+        <Label alignment="CENTER" maxWidth="Infinity" style="-fx-font-weight: bold; -fx-font-size: 32px;" text="Settings" />
     </top>
     <left>
-        <VBox spacing="85" alignment="TOP_LEFT">
+        <VBox alignment="TOP_LEFT" spacing="85">
             <padding>
-                <Insets top="30" right="80" bottom="30" left="10"/>
+                <Insets bottom="30" left="10" right="80" top="30" />
             </padding>
 
-            <Button text="Back" onAction="#handleBackController" prefWidth="200"
-                    graphicTextGap="10"
-                    style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 20px; -fx-border-color: transparent;" >
+            <Button graphicTextGap="10" onAction="#handleBackController" prefWidth="200" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 20px; -fx-border-color: transparent;" text="Back">
                 <graphic>
                     <ImageView fitHeight="80" fitWidth="80">
                         <image>
@@ -38,15 +34,13 @@
 
     <center>
         <HBox alignment="CENTER_LEFT">
-            <VBox spacing="50.0" alignment="CENTER_LEFT">
+            <VBox alignment="CENTER_LEFT" spacing="50.0">
                 <padding>
-                    <Insets top="150" right="80" bottom="30" left="-90"/>
+                    <Insets bottom="30" left="-90" right="80" top="150" />
                 </padding>
 
                 <!-- Adjust Button Styles to Left-align Text -->
-                <Button text="Account" onAction="#handleAccount" prefWidth="500"
-                        graphicTextGap="25"
-                        style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" >
+                <Button graphicTextGap="25" onAction="#handleAccount" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Account">
                     <graphic>
                         <ImageView fitHeight="80" fitWidth="80">
                             <image>
@@ -55,9 +49,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button text="Hidden" onAction="#handleHidden" prefWidth="500"
-                        graphicTextGap="25"
-                        style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" >
+                <Button graphicTextGap="25" onAction="#handleHidden" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Hidden">
                     <graphic>
                         <ImageView fitHeight="80" fitWidth="80">
                             <image>
@@ -66,33 +58,27 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button text="Privacy &amp; Data" onAction="#handlePrivacy" prefWidth="500"
-                        graphicTextGap="25"
-                        style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" >
+                <Button graphicTextGap="25" onAction="#handlePrivacy" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Privacy &amp; Data">
                     <graphic>
-                        <ImageView fitHeight="80" fitWidth="80" >
+                        <ImageView fitHeight="80" fitWidth="80">
                             <image>
                                 <Image url="file:src/main/resources/icons/privacy.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button text="Terms and Conditions" onAction="#handleTerms" prefWidth="500"
-                        graphicTextGap="25"
-                        style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" >
+                <Button graphicTextGap="25" onAction="#handleTerms" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Terms and Conditions">
                     <graphic>
-                        <ImageView fitHeight="80" fitWidth="80" >
+                        <ImageView fitHeight="80" fitWidth="80">
                             <image>
                                 <Image url="file:src/main/resources/icons/terms.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button text="Logout" onAction="#handleLogout" prefWidth="500"
-                        graphicTextGap="25"
-                        style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: red; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" >
+                <Button graphicTextGap="25" onAction="#handleLogout" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: red; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Logout">
                     <graphic>
-                        <ImageView fitHeight="80" fitWidth="80" >
+                        <ImageView fitHeight="80" fitWidth="80">
                             <image>
                                 <Image url="file:src/main/resources/icons/logout.png" />
 
@@ -105,9 +91,9 @@
     </center>
 
     <bottom>
-        <Label maxWidth="Infinity" alignment="CENTER" >
+        <Label alignment="CENTER" maxWidth="Infinity">
             <graphic>
-                <ImageView fitHeight="120" fitWidth="300" >
+                <ImageView fitHeight="120" fitWidth="300">
                     <image>
                         <Image url="file:src/main/resources/icons/focka.png" />
                     </image>

@@ -6,15 +6,16 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1960.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<VBox prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="125.0" prefWidth="1960.0" style="-fx-background-color: #D9D9D9;">
+      <HBox prefHeight="125.0" prefWidth="1024.0" style="-fx-background-color: #D9D9D9;">
          <children>
             <Button mnemonicParsing="false" text="Button">
                <font>
@@ -52,16 +53,16 @@
             </Button>
          </children>
       </HBox>
-      <Label layoutX="156.0" layoutY="158.0" text="My Watchlist!">
+      <Label text="My Watchlist!">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <ScrollPane prefHeight="700.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="250.0">
+      <ScrollPane prefHeight="768.0" prefWidth="1024.0" vbarPolicy="ALWAYS">
          <content>
-            <TilePane prefHeight="900.0" prefWidth="1730.0">
+            <TilePane prefHeight="768.0" prefWidth="1024.0">
                <children>
-                  <ImageView fitHeight="350.0" fitWidth="250.0" pickOnBounds="true">
+                  <ImageView fitHeight="350.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@logo.png" />
                      </image>
@@ -74,4 +75,4 @@
          </content>
       </ScrollPane>
    </children>
-</AnchorPane>
+</VBox>

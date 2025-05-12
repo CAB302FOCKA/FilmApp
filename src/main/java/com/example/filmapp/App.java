@@ -13,7 +13,7 @@ public class App extends Application {
 
 //        Temporary fix for resolution issue on small screens with DPI scaling
 //        stage.setWidth(1280);
-//        stage.setHeight(720);
+//       stage.setHeight(720);
 
         SceneManager.setStage(stage);
         SceneManager.switchTo("login.fxml");
