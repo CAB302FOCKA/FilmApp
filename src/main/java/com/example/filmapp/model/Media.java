@@ -10,16 +10,18 @@ public class Media {
     protected String title;
     protected String overview;
     protected String posterPath;
+    protected String backdropPath;
     protected double rating;
     protected int runtime;
     ArrayList<String> genres;
     protected String mediaType;
 
-    public Media(String id, String title, String overview, String posterPath, double rating, int runtime, ArrayList<String> genres) {
+    public Media(String id, String title, String overview, String posterPath, String backdropPath, double rating, int runtime, ArrayList<String> genres) {
         this.id = id;
         this.title = title;
         this.overview = overview;
         this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
         this.rating = rating;
         this.runtime = runtime;
         this.genres = genres;
@@ -44,6 +46,8 @@ public class Media {
     public String getPosterPath() {
         return posterPath;
     }
+
+    public String getBackdropPath() { return backdropPath; }
 
     public double getRating() {
         return rating;

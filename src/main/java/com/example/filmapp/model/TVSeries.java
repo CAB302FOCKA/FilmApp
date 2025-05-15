@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class TVSeries extends Media {
     protected String mediaType = "TV Series";
 
-    public TVSeries(String id, String title, String overview, String posterPath, double rating, int runtime, ArrayList<String> genres) {
-        super(id, title, overview, posterPath, rating, runtime, genres);
+    public TVSeries(String id, String title, String overview, String posterPath, String backdropPath, double rating, int runtime, ArrayList<String> genres) {
+        super(id, title, overview, posterPath, backdropPath, rating, runtime, genres);
     }
 }

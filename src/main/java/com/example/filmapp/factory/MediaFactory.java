@@ -32,6 +32,7 @@ public class MediaFactory {
 
             String overview = (String) json.getOrDefault("overview", "No overview available.");
             String posterPath = (String) json.getOrDefault("poster_path", null);
+            String backdropPath = (String) json.getOrDefault("backdrop_path", null);
             Object runtimeObj = json.get("runtime");
             int runtime = (runtimeObj instanceof Number) ? ((Number) runtimeObj).intValue() : 0;
             double rating = json.get("vote_average") instanceof Number ? ((Number) json.get("vote_average")).doubleValue() : 0.0;
@@ -47,25 +48,25 @@ public class MediaFactory {
             }
 
             if (mediaType.equalsIgnoreCase("movie")) {
-                Movie movie = new Movie(id, title, overview, posterPath, rating, runtime, genres);
+                Movie movie = new Movie(id, title, overview, posterPath, backdropPath, rating, runtime, genres);
                 movie.setMediaType("movie");
                 return movie;
             } else if (mediaType.equalsIgnoreCase("tv")) {
-                TVSeries tv = new TVSeries(id, title, overview, posterPath, rating, runtime, genres);
+                TVSeries tv = new TVSeries(id, title, overview, posterPath, backdropPath, rating, runtime, genres);
                 tv.setMediaType("tv");
                 return tv;
             } else {
                 mediaType = (String) json.getOrDefault("media_type", null);
                 if ("movie".equalsIgnoreCase(mediaType)) {
-                    Movie movie = new Movie(id, title, overview, posterPath, rating, runtime, genres);
+                    Movie movie = new Movie(id, title, overview, posterPath, backdropPath, rating, runtime, genres);
                     movie.setMediaType("movie");
                     return movie;
                 } else if ("tv".equalsIgnoreCase(mediaType)) {
-                    TVSeries tv = new TVSeries(id, title, overview, posterPath, rating, runtime, genres);
+                    TVSeries tv = new TVSeries(id, title, overview, posterPath, backdropPath, rating, runtime, genres);
                     tv.setMediaType("tv");
                     return tv;
                 } else {
-                    Media media = new Media(id, title, overview, posterPath, rating, runtime, genres);
+                    Media media = new Media(id, title, overview, posterPath, backdropPath, rating, runtime, genres);
                     media.setMediaType(mediaType); // handles edge cases or unknowns
                     return media;
                 }

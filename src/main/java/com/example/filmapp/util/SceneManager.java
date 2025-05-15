@@ -16,6 +16,7 @@ public class SceneManager {
         //Set startup size to work on most devices
         stage.setWidth(1280);
         stage.setHeight(720);
+        stage.setTitle("Focka Films");
     }
 
     public static void switchTo(String fxml) throws IOException {

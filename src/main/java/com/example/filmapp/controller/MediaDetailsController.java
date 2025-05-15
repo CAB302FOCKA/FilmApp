@@ -8,6 +8,7 @@ import com.example.filmapp.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 
@@ -62,6 +63,9 @@ public class MediaDetailsController {
     private Label trailerErrorLabel;
 
     @FXML
+    private ImageView mediaBanner;
+
+    @FXML
     private void handleAddToWatchlist() {
         String userId = AppState.getInstance().getCurrentUserId();
         String mediaId = selectedMedia.getId();
@@ -90,6 +94,16 @@ public class MediaDetailsController {
 
         trailerErrorLabel.setText("");
 
+        /// Transparent Media Banner for top of page
+        /*
+        mediaBanner.setImage(new Image("https://image.tmdb.org/t/p/w780" + selectedMedia.getBackdropPath(), true));
+        mediaBanner.setFitWidth(1920);
+        mediaBanner.setFitHeight(141);
+        mediaBanner.setPreserveRatio(false);
+
+        mediaBanner.setViewport(new Rectangle2D(mediaBanner.getX(), mediaBanner.getY(), 320, 289.5));
+        */
+
         populateSimilarToContainer();
         populateRecommendationsContainer();
         populateCastContainer();
@@ -110,9 +124,16 @@ public class MediaDetailsController {
                 String charName = (String) json.get("character");
                 String profile_path = (String) json.get("profile_path");
 
+                // if no picture don't show the actor
                 if (profile_path != null){
                     ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + profile_path);
+
                     Label label = new Label(MessageFormat.format("{0}\n as {1}", actorName, charName));
+
+                    label.setAlignment(Pos.CENTER);
+
+                    if (charName == null) // Handle if actor plays themselves
+                        label.setText(actorName);
 
                     System.out.println(actorName + " plays " + charName);
 
@@ -121,9 +142,9 @@ public class MediaDetailsController {
                     imageView.setPreserveRatio(false);
 
                     // Create VBox to hold the image and label
-                    VBox actorBox = new VBox(0); // 5 = spacing between image and label
+                    VBox actorBox = new VBox(0);
                     actorBox.getChildren().addAll(imageView, label);
-                    actorBox.setAlignment(Pos.CENTER); // Center align contents
+                    actorBox.setAlignment(Pos.CENTER);
 
                     castContainer.getChildren().add(actorBox);
                 }

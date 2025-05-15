@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Movie extends Media {
     protected String mediaType = "Movie";
 
-    public Movie(String id, String title, String overview, String posterPath, double rating, int runtime, ArrayList<String> genres) {
-        super(id, title, overview, posterPath, rating, runtime, genres);
+    public Movie(String id, String title, String overview, String posterPath, String backdropPath, double rating, int runtime, ArrayList<String> genres) {
+        super(id, title, overview, posterPath, backdropPath, rating, runtime, genres);
     }
 }
