@@ -3,8 +3,10 @@ package com.example.filmapp.controller;
 import com.example.filmapp.service.DatabaseConnection;
 import com.example.filmapp.state.AppState;
 import com.example.filmapp.util.SceneManager;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -57,36 +59,59 @@ public class LoginController {
             return;
         }
 
-        String query = "SELECT userID, userPass FROM user WHERE userEmail = ?";
+        loginStatus.setText("Logging in...");
 
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        Task<Boolean> logintask = new Task<>() {
+            private String userID;
 
-            preparedStatement.setString(1, email);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            @Override
+            protected Boolean call() {
+                String query = "SELECT userID, userPass FROM user WHERE userEmail = ?";
 
-            if (resultSet.next()) {
-                String storedHashedPassword = resultSet.getString("userPass");
+                try (Connection connection = DatabaseConnection.getConnection();
+                     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-                if (BCrypt.checkpw(password, storedHashedPassword)) {
-                    String userIdFromDatabase = resultSet.getString("userID");
-                    AppState.getInstance().setCurrentUserId(userIdFromDatabase);
+                    preparedStatement.setString(1, email);
+                    ResultSet resultSet = preparedStatement.executeQuery();
 
-                    loginStatus.setText("Login successful!");
-                    System.out.println("Logged in as user ID: " + userIdFromDatabase);
-                    SceneManager.switchTo("home_discover2.fxml");
-                } else {
-                    loginStatus.setText("Incorrect password.");
+                    if (resultSet.next()) {
+                        String storedHashPassword = resultSet.getString("userPass");
+
+                        if (BCrypt.checkpw(password, storedHashPassword)) {
+                            userID = resultSet.getString("userID");
+                            return true;
+                        }
+                    }
+                } catch (SQLException e) {
+                    updateMessage("Database Error");
+                    e.printStackTrace();
                 }
-            } else {
-                loginStatus.setText("Email not found.");
+                return false;
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            loginStatus.setText("Database error.");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+            protected void succeeded() {
+                boolean loginSuccess = getValue();
+                if (loginSuccess) {
+                    AppState.getInstance().setCurrentUserId(userID);
+                    loginStatus.setText("Login Successful!");
+                    try {
+                        SceneManager.switchTo("home_discover2.fxml");
+                    }catch (IOException e){
+                        e.printStackTrace();
+                        loginStatus.setText("Fail to switch scene");
+                    }
+                }else {
+                    loginStatus.setText("Login Failed!");
+                }
+            }
+
+            @Override
+            protected void failed() {
+                loginStatus.setText("Login Failed!");
+            }
+        };
+
+        new Thread(logintask).start();
     }
 }
