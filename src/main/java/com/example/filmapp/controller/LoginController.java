@@ -59,7 +59,7 @@ public class LoginController {
             return;
         }
 
-        loginStatus.setText("Logging in...");
+        loginStatus.setText("Logging in..");
 
         Task<Boolean> logintask = new Task<>() {
             private String userID;
