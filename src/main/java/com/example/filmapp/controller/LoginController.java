@@ -41,7 +41,7 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        System.out.println("LoginController initialized!");
+        System.out.println("Login Controller initialized!");
     }
 
     @FXML
