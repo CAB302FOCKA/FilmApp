@@ -1,4 +1,4 @@
-name: Build JavaFX App
+name: Build FilmApp
 
 on:
   push:
