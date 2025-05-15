@@ -37,6 +37,3 @@ build/
 ### Mac OS ###
 .DS_Store
 /docs/javadoc/
-
-src/main/java/com/example/filmapp/service/HttpRequest.java
-src/main/java/com/example/filmapp/service/DatabaseConnection.java
