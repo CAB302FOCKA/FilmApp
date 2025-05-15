@@ -1,5 +1,11 @@
 package com.example.filmapp.service;
 
+import com.example.filmapp.factory.MediaFactory;
+import com.example.filmapp.model.Media;
+import com.example.filmapp.state.AppState;
+import com.example.filmapp.util.SceneManager;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -57,8 +63,8 @@ public class API {
         return (JSONArray) jsonResponse.get("results");
     }
 
-    public JSONArray getSimilarToMovieList(String mediaId) throws IOException {
-        String url = MessageFormat.format("https://api.themoviedb.org/3/movie/{0}/similar", mediaId);
+    public JSONArray getSimilarToMediaList(Media media) throws IOException {
+        String url = MessageFormat.format("https://api.themoviedb.org/3/{0}/{1}/similar", media.getMediaType(),media.getId());
         HttpRequest httpRequest = new HttpRequest(url);
         JSONObject jsonResponse = httpRequest.Fetch();
 
@@ -69,8 +75,9 @@ public class API {
 
         return (JSONArray) jsonResponse.get("results");
     }
-    public JSONArray getRecommendationsList(String mediaId) throws IOException {
-        String url = MessageFormat.format("https://api.themoviedb.org/3/movie/{0}/recommendations", mediaId);
+
+    public JSONArray getRecommendationsList(Media media) throws IOException {
+        String url = MessageFormat.format("https://api.themoviedb.org/3/{0}/{1}/recommendations", media.getMediaType(),media.getId());
         HttpRequest httpRequest = new HttpRequest(url);
         JSONObject jsonResponse = httpRequest.Fetch();
 
@@ -80,5 +87,36 @@ public class API {
         }
 
         return (JSONArray) jsonResponse.get("results");
+    }
+
+    public String getMediaTrailerUrl(Media media) throws IOException{
+        String url = MessageFormat.format(" https://api.themoviedb.org/3/{0}/{1}/videos", media.getMediaType(),media.getId());
+        HttpRequest httpRequest = new HttpRequest(url);
+        JSONObject jsonResponse = httpRequest.Fetch();
+
+        if (jsonResponse == null || !jsonResponse.containsKey("results")) {
+            System.err.println("API Error: No trailer found.");
+            return null;
+        }
+
+        String trailerUrl = null;
+
+        JSONArray results = (JSONArray) jsonResponse.get("results");
+
+        // Loop through all the possible videos and play the first to meet the criteria trailer on YouTube.
+        for (int i = 0; i < results.size(); i++) {
+            JSONObject video = (JSONObject) results.get(i);
+            String type = (String) video.get("type");
+            String site = (String) video.get("site");
+
+            if ("Trailer".equalsIgnoreCase(type) && "YouTube".equalsIgnoreCase(site)) {
+                String key = (String) video.get("key");
+                trailerUrl = "https://www.youtube.com/watch?v=" + key;
+                System.out.println("Trailer URL: " + trailerUrl);
+                break;
+            }
+        }
+
+        return trailerUrl;
     }
 }

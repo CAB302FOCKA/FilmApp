@@ -28,7 +28,7 @@
                            <font>
                               <Font size="14.0" />
                            </font></Label>
-                        <Button layoutX="349.0" layoutY="294.0" mnemonicParsing="false" text="Play Trailer" />
+                        <Button fx:id="PlayTrailerButton" layoutX="349.0" layoutY="294.0" mnemonicParsing="false" onAction="#onPlayTrailerClicked" text="Play Trailer" />
                         <Button fx:id="addToWatchlistButton" layoutX="435.0" layoutY="294.0" onAction="#handleAddToWatchlist" text="Add to Watchlist" />
                         <Button fx:id="backButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButtonClicked" text="&lt;" />
                         <Label fx:id="mediaLabel" layoutX="423.0" layoutY="105.0">
@@ -40,6 +40,11 @@
                               <Font size="16.0" />
                            </font></Label>
                         <ImageView fx:id="posterImage" fitHeight="384.0" fitWidth="260.0" layoutX="71.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="trailerErrorLabel" alignment="TOP_LEFT" layoutX="349.0" layoutY="329.0" prefHeight="17.0" prefWidth="251.0" text="Could not find Trailer" textFill="#656565" wrapText="true">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">

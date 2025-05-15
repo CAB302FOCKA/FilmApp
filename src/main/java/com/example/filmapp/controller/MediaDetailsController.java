@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -20,7 +22,9 @@ import javafx.scene.layout.FlowPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.net.URI;
 import java.io.IOException;
+import java.text.MessageFormat;
 
 public class MediaDetailsController {
     Media selectedMedia = AppState.getInstance().getSelectedMedia();
@@ -53,6 +57,9 @@ public class MediaDetailsController {
     private Button addToWatchlistButton;
 
     @FXML
+    private Label trailerErrorLabel;
+
+    @FXML
     private void handleAddToWatchlist() {
         String userId = AppState.getInstance().getCurrentUserId();
         String mediaId = selectedMedia.getId();
@@ -79,6 +86,8 @@ public class MediaDetailsController {
         ratingText.setText(String.format("%s/10",selectedMedia.getRating()));
         posterImage.setImage(new Image("https://image.tmdb.org/t/p/w200" + selectedMedia.getPosterPath(), true));
 
+        trailerErrorLabel.setText("");
+
         populateSimilarToContainer();
         populateRecommendationsContainer();
     }
@@ -88,7 +97,7 @@ public class MediaDetailsController {
 
         try {
             API api = new API();
-            JSONArray results = api.getSimilarToMovieList(selectedMedia.getId());
+            JSONArray results = api.getSimilarToMediaList(selectedMedia);
             if (results == null) return;
 
             for (int i = 0; i < Math.min(8, results.size()); i++) {
@@ -123,7 +132,7 @@ public class MediaDetailsController {
 
         try {
             API api = new API();
-            JSONArray results = api.getRecommendationsList(selectedMedia.getId());
+            JSONArray results = api.getRecommendationsList(selectedMedia);
             if (results == null) return;
 
             for (int i = 0; i < Math.min(8, results.size()); i++) {
@@ -156,5 +165,26 @@ public class MediaDetailsController {
     @FXML
     public void onBackButtonClicked(ActionEvent actionEvent) throws IOException {
         SceneManager.switchTo("search.fxml");
+    }
+
+    @FXML
+    public void onPlayTrailerClicked(ActionEvent actionEvent) throws IOException{
+
+        try {
+            API api = new API();
+            String url = api.getMediaTrailerUrl(selectedMedia);
+
+            if (url != null){
+                Desktop.getDesktop().browse(new URI(url));
+                System.out.println("Trailer opened in browser");
+            }
+            else{
+                trailerErrorLabel.setText("Could not find Trailer");
+                System.out.println("Could not find Trailer");
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
