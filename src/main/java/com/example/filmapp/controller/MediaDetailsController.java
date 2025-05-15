@@ -7,6 +7,7 @@ import com.example.filmapp.state.AppState;
 import com.example.filmapp.util.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 
@@ -19,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -90,6 +92,46 @@ public class MediaDetailsController {
 
         populateSimilarToContainer();
         populateRecommendationsContainer();
+        populateCastContainer();
+    }
+
+    void populateCastContainer(){
+        castContainer.getChildren().clear();
+
+        try {
+            API api = new API();
+            JSONArray results = api.getCastList(selectedMedia);
+            if (results == null) return;
+
+            for (int i = 0; i < Math.min(8, results.size()); i++) {
+                JSONObject json = (JSONObject) results.get(i);
+
+                String actorName = (String) json.get("name");
+                String charName = (String) json.get("character");
+                String profile_path = (String) json.get("profile_path");
+
+                if (profile_path != null){
+                    ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + profile_path);
+                    Label label = new Label(MessageFormat.format("{0}\n as {1}", actorName, charName));
+
+                    System.out.println(actorName + " plays " + charName);
+
+                    imageView.setFitWidth(142.4);
+                    imageView.setFitHeight(210.4);
+                    imageView.setPreserveRatio(false);
+
+                    // Create VBox to hold the image and label
+                    VBox actorBox = new VBox(0); // 5 = spacing between image and label
+                    actorBox.getChildren().addAll(imageView, label);
+                    actorBox.setAlignment(Pos.CENTER); // Center align contents
+
+                    castContainer.getChildren().add(actorBox);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     void populateSimilarToContainer(){

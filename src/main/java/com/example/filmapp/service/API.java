@@ -119,4 +119,17 @@ public class API {
 
         return trailerUrl;
     }
+
+    public JSONArray getCastList(Media media) throws IOException {
+        String url = MessageFormat.format(" https://api.themoviedb.org/3/{0}/{1}/credits", media.getMediaType(),media.getId());
+        HttpRequest httpRequest = new HttpRequest(url);
+        JSONObject jsonResponse = httpRequest.Fetch();
+
+        if (jsonResponse == null || !jsonResponse.containsKey("cast")) {
+            System.err.println("API Error: No cast found.");
+            return null;
+        }
+
+        return (JSONArray) jsonResponse.get("cast");
+    }
 }
