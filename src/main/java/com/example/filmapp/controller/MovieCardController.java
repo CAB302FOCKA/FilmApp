@@ -27,6 +27,8 @@ public class MovieCardController {
                 throw new RuntimeException(ex);
             }});
 
-            if (imageUrl != null && !imageUrl.isEmpty()) imageView.setImage(new Image(imageUrl));
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                imageView.setImage(new Image(imageUrl, true));
+            };
         }
     }
