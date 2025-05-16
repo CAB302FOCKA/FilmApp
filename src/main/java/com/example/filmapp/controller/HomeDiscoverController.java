@@ -185,7 +185,7 @@ public class HomeDiscoverController {
     @FXML
     private void handleAccountButton() {
         try {
-            SceneManager.switchTo("settings.fxml");
+            SceneManager.switchTo("account_settings.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
