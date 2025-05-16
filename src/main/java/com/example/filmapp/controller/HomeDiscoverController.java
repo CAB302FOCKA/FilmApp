@@ -106,7 +106,8 @@ public class HomeDiscoverController {
 
                     for (int i = 0; i < Math.min(5, results.size()); i++) {
                         JSONObject json = (JSONObject) results.get(i);
-                        Media media = MediaFactory.fromJson(json, "movie");
+
+                        Media media = MediaFactory.fromJson(json, mediaType);
                         if (media != null && media.getPosterPath() != null) {
                             forYouBox.getChildren().add(buildCard(media, false));
                         }
