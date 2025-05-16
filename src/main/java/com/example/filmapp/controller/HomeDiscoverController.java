@@ -182,6 +182,7 @@ public class HomeDiscoverController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void handleAccountButton() {
         try {
