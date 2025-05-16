@@ -1,7 +1,7 @@
 package com.example.filmapp.model;
 
 /**
- Person class used for cast members
+ Person class abstraction used for cast members
  */
 public class Person {
     String name;
