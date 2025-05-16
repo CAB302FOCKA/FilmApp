@@ -135,7 +135,9 @@ public class MediaDetailsController {
             for (Person person : selectedMedia.getCast()){
                 // if no picture don't show the actor
                 if (person.getProfilePath() != null){
-                    ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + person.getProfilePath());
+                    ImageView imageView = new ImageView();
+                    Image image = new Image("https://image.tmdb.org/t/p/w500" + person.getProfilePath(), true);
+                    imageView.setImage(image);
 
                     Label label = new Label(MessageFormat.format("{0}\n as {1}", person.getName(), person.getCharacter()));
 
@@ -176,7 +178,10 @@ public class MediaDetailsController {
                 JSONObject json = (JSONObject) results.get(i);
                 Media media = MediaFactory.fromJson(json, "movie");
                 if (media != null && media.getPosterPath() != null) {
-                    ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + media.getPosterPath());
+                    ImageView imageView = new ImageView();
+                    Image image = new Image("https://image.tmdb.org/t/p/w500" + media.getPosterPath(), true);
+                    imageView.setImage(image);
+
                     imageView.setFitWidth(178);
                     imageView.setFitHeight(263);
                     imageView.setPreserveRatio(false);
@@ -211,7 +216,10 @@ public class MediaDetailsController {
                 JSONObject json = (JSONObject) results.get(i);
                 Media media = MediaFactory.fromJson(json, "movie");
                 if (media != null && media.getPosterPath() != null) {
-                    ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + media.getPosterPath());
+                    ImageView imageView = new ImageView();
+                    Image image = new Image("https://image.tmdb.org/t/p/w500" + media.getPosterPath(), true);
+                    imageView.setImage(image);
+
                     imageView.setFitWidth(178);
                     imageView.setFitHeight(263);
                     imageView.setPreserveRatio(false);
