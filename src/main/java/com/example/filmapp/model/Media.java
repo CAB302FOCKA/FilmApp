@@ -15,6 +15,7 @@ public class Media {
     protected int runtime;
     ArrayList<String> genres;
     protected String mediaType;
+    ArrayList<Person> cast;
 
     public Media(String id, String title, String overview, String posterPath, String backdropPath, double rating, int runtime, ArrayList<String> genres) {
         this.id = id;
@@ -25,6 +26,9 @@ public class Media {
         this.rating = rating;
         this.runtime = runtime;
         this.genres = genres;
+    }
+    public void setCast(ArrayList<Person> cast) {
+        this.cast = cast;
     }
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
@@ -63,5 +67,9 @@ public class Media {
 
     public String getMediaType(){
         return this.mediaType;
+    }
+
+    public ArrayList<Person> getCast() {
+        return cast;
     }
 }

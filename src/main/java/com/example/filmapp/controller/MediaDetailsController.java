@@ -2,6 +2,7 @@ package com.example.filmapp.controller;
 
 import com.example.filmapp.factory.MediaFactory;
 import com.example.filmapp.model.Media;
+import com.example.filmapp.model.Person;
 import com.example.filmapp.service.API;
 import com.example.filmapp.state.AppState;
 import com.example.filmapp.util.SceneManager;
@@ -28,6 +29,7 @@ import org.json.simple.JSONObject;
 import java.net.URI;
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 
 public class MediaDetailsController {
     Media selectedMedia = AppState.getInstance().getSelectedMedia();
@@ -117,25 +119,32 @@ public class MediaDetailsController {
             JSONArray results = api.getCastList(selectedMedia);
             if (results == null) return;
 
-            for (int i = 0; i < Math.min(8, results.size()); i++) {
-                JSONObject json = (JSONObject) results.get(i);
+            ArrayList<Person> castMembers = new ArrayList<>();
 
-                String actorName = (String) json.get("name");
-                String charName = (String) json.get("character");
-                String profile_path = (String) json.get("profile_path");
+            for (Object person : results){
+                JSONObject jsonPerson = (JSONObject) person;
 
+                String actorName = (String) jsonPerson.get("name");
+                String charName = (String) jsonPerson.get("character");
+                String profilePath = (String) jsonPerson.get("profile_path");
+
+                castMembers.add(new Person(actorName, charName, profilePath));
+            }
+            selectedMedia.setCast(castMembers);
+
+            for (Person person : selectedMedia.getCast()){
                 // if no picture don't show the actor
-                if (profile_path != null){
-                    ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + profile_path);
+                if (person.getProfilePath() != null){
+                    ImageView imageView = new ImageView("https://image.tmdb.org/t/p/w500" + person.getProfilePath());
 
-                    Label label = new Label(MessageFormat.format("{0}\n as {1}", actorName, charName));
+                    Label label = new Label(MessageFormat.format("{0}\n as {1}", person.getName(), person.getCharacter()));
 
                     label.setAlignment(Pos.CENTER);
 
-                    if (charName == null) // Handle if actor plays themselves
-                        label.setText(actorName);
+                    if (person.getName() == null) // Handle if actor plays themselves
+                        label.setText(person.getName());
 
-                    System.out.println(actorName + " plays " + charName);
+                    System.out.println(person.getName() + " plays " + person.getCharacter());
 
                     imageView.setFitWidth(142.4);
                     imageView.setFitHeight(210.4);
