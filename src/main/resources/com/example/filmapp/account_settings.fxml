@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.filmapp.AccountSettingsController">
+
+    <top>
+        <Label text="Account Settings"
+               style="-fx-font-weight: bold; -fx-font-size: 32px;"
+               maxWidth="Infinity"
+               alignment="CENTER"/>
+    </top>
+
+    <left>
+        <VBox spacing="85" alignment="TOP_LEFT">
+            <padding><Insets top="30" right="80" bottom="30" left="10"/></padding>
+            <Button text="Back" onAction="#handleBack" prefWidth="200"
+                    graphicTextGap="10"
+                    style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 20px; -fx-border-color: transparent;">
+                <graphic>
+                    <ImageView fitHeight="80" fitWidth="80">
+                        <image>
+                            <Image url="file:src/main/resources/icons/back.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox alignment="CENTER" spacing="30">
+            <padding><Insets top="50" bottom="50" left="20" right="20"/></padding>
+
+            <GridPane hgap="20" vgap="20">
+                <Label text="Current Email:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-size: 18px;"/>
+                <Label fx:id="emailLabel" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-font-size: 18px;"/>
+
+                <Label text="Username:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-size: 18px;"/>
+                <Label fx:id="usernameLabel" GridPane.rowIndex="0" GridPane.columnIndex="1" text="Username" style="-fx-font-size: 16;" />
+
+
+                <Label text="Change Email:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-size: 18px;"/>
+                <TextField fx:id="newEmailField" promptText="Enter new email" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="New Password:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-size: 18px;"/>
+                <PasswordField fx:id="newPasswordField" promptText="Enter new password" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Confirm Password:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-size: 18px;"/>
+                <PasswordField fx:id="confirmPasswordField" promptText="Confirm new password" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <CheckBox fx:id="showPasswordCheckBox" text="Show Passwords" onAction="#togglePasswordVisibility"
+                          GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <Button text="Save Changes" onAction="#handleSaveChanges" style="-fx-font-weight: bold;"
+                        GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Label fx:id="statusLabel" style="-fx-text-fill: red; -fx-font-size: 16px;"/>
+        </VBox>
+    </center>
+</BorderPane>
