@@ -60,7 +60,7 @@ public class CreateAccountController {
 
     @FXML
     private void handleLoginRedirect(MouseEvent event) throws IOException {
-        SceneManager.switchTo("login.fxml");
+        SceneManager.switchTo("/com/example/filmapp/login.fxml");
     }
 
     private boolean validateInputs() {
@@ -110,7 +110,7 @@ public class CreateAccountController {
 
     private void switchToLoginPage() throws IOException {
         Stage stage = (Stage) myCreateAccount.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/filmapp/login.fxml"));
         Scene scene = new Scene(loader.load(), 1920, 1080);
         stage.setScene(scene);
     }
