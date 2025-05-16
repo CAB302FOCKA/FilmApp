@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.filmapp.controller.SettingsController">
+<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.filmapp.controller.SettingsController" style="-fx-background-color: white">
 
     <top>
         <Label alignment="CENTER" maxWidth="Infinity" style="-fx-font-weight: bold; -fx-font-size: 32px;" text="Settings" />
@@ -45,15 +45,6 @@
                         <ImageView fitHeight="80" fitWidth="80">
                             <image>
                                 <Image url="file:src/main/resources/icons/account.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button graphicTextGap="25" onAction="#handleHidden" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Hidden">
-                    <graphic>
-                        <ImageView fitHeight="80" fitWidth="80">
-                            <image>
-                                <Image url="file:src/main/resources/icons/hidden.png" />
                             </image>
                         </ImageView>
                     </graphic>

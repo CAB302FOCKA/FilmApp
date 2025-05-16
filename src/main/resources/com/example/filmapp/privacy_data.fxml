@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.filmapp.PrivacyDataController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.filmapp.PrivacyDataController" style="-fx-background-color: white">
     <top>
         <Label text="Privacy &amp; Data" style="-fx-font-weight: bold; -fx-font-size: 32px;"
                maxWidth="Infinity" alignment="CENTER"/>

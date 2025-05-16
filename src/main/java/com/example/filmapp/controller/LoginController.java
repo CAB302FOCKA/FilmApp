@@ -3,6 +3,7 @@ package com.example.filmapp.controller;
 import com.example.filmapp.service.DatabaseConnection;
 import com.example.filmapp.state.AppState;
 import com.example.filmapp.util.SceneManager;
+import com.example.filmapp.UserSession;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,10 +64,13 @@ public class LoginController {
 
         Task<Boolean> logintask = new Task<>() {
             private String userID;
+            private String username;
+            private String userEmail;
+            private String hashedPassword;
 
             @Override
             protected Boolean call() {
-                String query = "SELECT userID, userPass FROM user WHERE userEmail = ?";
+                String query = "SELECT userID, userName, userEmail, userPass FROM user WHERE userEmail = ?";
 
                 try (Connection connection = DatabaseConnection.getConnection();
                      PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -79,6 +83,9 @@ public class LoginController {
 
                         if (BCrypt.checkpw(password, storedHashPassword)) {
                             userID = resultSet.getString("userID");
+                            username = resultSet.getString("userName");
+                            userEmail = resultSet.getString("userEmail");
+                            hashedPassword = storedHashPassword;
                             return true;
                         }
                     }
@@ -94,6 +101,7 @@ public class LoginController {
                 boolean loginSuccess = getValue();
                 if (loginSuccess) {
                     AppState.getInstance().setCurrentUserId(userID);
+                    UserSession.setUser(username, userEmail, hashedPassword);
                     loginStatus.setText("Login Successful!");
                     try {
                         SceneManager.switchTo("home_discover2.fxml");

@@ -44,16 +44,8 @@ public class PrivacyDataController {
                 "- We may use third-party APIs (e.g., movie data sources). We do not control their privacy practices.\n" +
                 "- No personal data is shared with these APIs.\n\n" +
                 "5. User Control\n" +
-                "- You may request data deletion by contacting support@fockafilms.com.\n" +
-                "- You can manage your login credentials and activity settings through your account.\n\n" +
-                "6. Children’s Privacy\n" +
-                "- The application is not intended for users under the age of 13.\n\n" +
-                "7. Changes\n" +
-                "- We may update this Privacy Policy. Continued use constitutes acceptance of any changes.\n\n" +
-                "8. Governing Law\n" +
-                "This Privacy Policy is governed by the laws of Queensland, Australia.\n\n" +
-                "For questions or concerns, contact us at support@fockafilms.com.\n\n" +
-                "© 2025 FOCKA FILMS Pty Ltd. All rights reserved.";
+                "- You may request data deletion by contacting support@fock";
+
 
         privacyTextArea.setText(privacyText);
     }

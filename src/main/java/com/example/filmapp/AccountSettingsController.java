@@ -148,7 +148,51 @@ public class AccountSettingsController {
         statusLabel.setStyle("-fx-text-fill: red;");
         statusLabel.setText(message);
     }
+    @FXML
+    private void handleDeleteAccount(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Account Deletion");
+        alert.setHeaderText("Are you sure you want to delete your account?");
+        alert.setContentText("This action cannot be undone.");
 
+        // Style the alert
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setStyle("-fx-background-color: #fef2f2;");
+        dialogPane.lookup(".header-panel").setStyle("-fx-background-color: #fee2e2;");
+        dialogPane.lookup(".content.label").setStyle("-fx-text-fill: #b91c1c; -fx-font-weight: bold;");
+
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        alert.showAndWait().ifPresent(type -> {
+            if (type == yesButton) {
+                deleteAccountAndLogout(event);
+            }
+        });
+    }
+
+    private void deleteAccountAndLogout(ActionEvent event) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String deleteSQL = "DELETE FROM user WHERE userEmail = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(deleteSQL)) {
+                stmt.setString(1, currentEmail);
+                stmt.executeUpdate();
+            }
+
+            UserSession.clearSession();
+
+            // Redirect to login screen
+            Parent loginPage = FXMLLoader.load(getClass().getResource("/com/example/filmapp/login.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loginPage, 1920, 1080));
+            stage.show();
+
+        } catch (Exception e) {
+            showError("Error deleting account: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     private void showSuccess(String message) {
         statusLabel.setStyle("-fx-text-fill: green;");
         statusLabel.setText(message);

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.filmapp.TermsAndConditionsController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.filmapp.TermsAndConditionsController" style="-fx-background-color: white">
     <top>
         <Label text="Terms and Conditions" style="-fx-font-weight: bold; -fx-font-size: 32px;" maxWidth="Infinity" alignment="CENTER"/>
     </top>
