@@ -1,5 +1,8 @@
 package com.example.filmapp.model;
 
+/**
+ Person class used for cast members
+ */
 public class Person {
     String name;
     String character;
