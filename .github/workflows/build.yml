@@ -32,9 +32,11 @@ jobs:
       - name: Run tests
         run: mvn test
 
-      - name: Upload Test Reports
+      - name: Unit Test Report
+        uses: dorny/test-reporter@v1
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: junit-test-results
-          path: '**/target/surefire-reports/*.xml'
+          name: Maven Tests
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+          fail-on-error: true
