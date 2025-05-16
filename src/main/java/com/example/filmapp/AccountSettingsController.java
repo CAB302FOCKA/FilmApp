@@ -38,7 +38,7 @@ public class AccountSettingsController {
 
     @FXML
     private void handleBack(ActionEvent event) throws IOException {
-        Parent settingsPage = FXMLLoader.load(getClass().getResource("/com/example/filmapp/settings.fxml"));
+        Parent settingsPage = FXMLLoader.load(getClass().getResource("home_discover2.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(settingsPage, 1920, 1080));
         stage.show();

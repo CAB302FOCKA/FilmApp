@@ -40,15 +40,6 @@
                 </padding>
 
                 <!-- Adjust Button Styles to Left-align Text -->
-                <Button graphicTextGap="25" onAction="#handleAccount" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Account">
-                    <graphic>
-                        <ImageView fitHeight="80" fitWidth="80">
-                            <image>
-                                <Image url="file:src/main/resources/icons/account.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
                 <Button graphicTextGap="25" onAction="#handlePrivacy" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Privacy &amp; Data">
                     <graphic>
                         <ImageView fitHeight="80" fitWidth="80">

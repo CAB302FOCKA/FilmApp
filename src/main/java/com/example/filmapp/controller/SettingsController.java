@@ -9,16 +9,6 @@ import java.io.IOException;
 public class SettingsController {
 
     @FXML
-    protected void handleAccount() {
-        System.out.println("Account settings clicked.");
-        try {
-            SceneManager.switchTo("account_settings.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
     protected void handlePrivacy() {
         System.out.println("Privacy & Data clicked.");
         try {
