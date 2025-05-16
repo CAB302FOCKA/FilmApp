@@ -77,15 +77,7 @@ public class HomeDiscoverController {
                 stmt.setString(1, userId);
                 ResultSet rs = stmt.executeQuery();
 
-                List<String[]> watchlistItems = new ArrayList<>();
-
-                while (rs.next()) {
-                    String mediaType = rs.getString("mediaType");
-                    String mediaId = rs.getString("mediaID");
-                    watchlistItems.add(new String[]{mediaType, mediaId});
-                }
-
-                if (watchlistItems.isEmpty()) {
+                if (rs.isLast()) {
                     System.out.println("📭 Watchlist is empty, loading trending into forYouBox...");
                     API api = new API();
                     JSONArray results = api.getTrendingMediaList("movie");
@@ -103,13 +95,13 @@ public class HomeDiscoverController {
 
                 API api = new API();
                 int j = 0;
-                for (String[] item : watchlistItems) {
-                    if (j >= 5) break;
-                    String mediaType = item[0];
-                    String mediaId = item[1];
+                while (rs.next() && j < 5) {
+                    String mediaType = rs.getString("mediaType");
+                    String mediaId = rs.getString("mediaID");
                     System.out.println("📺 Found watchlist item: " + mediaType + " - " + mediaId);
-
-                    JSONArray results = api.getRecommendationsList(mediaId);
+                    JSONObject json1 = api.getMediaDetails(mediaType,mediaId);
+                    Media media1 = MediaFactory.fromJson(json1, mediaType);
+                    JSONArray results = api.getRecommendationsList(media1);
                     if (results == null) continue;
 
                     for (int i = 0; i < Math.min(5, results.size()); i++) {
@@ -119,7 +111,6 @@ public class HomeDiscoverController {
                             forYouBox.getChildren().add(buildCard(media, false));
                         }
                     }
-
                     j++;
                 }
 
