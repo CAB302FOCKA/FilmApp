@@ -183,7 +183,6 @@ public class HomeDiscoverController {
         }
     }
 
-
     @FXML
     private void handleAccountButton() {
         try {
