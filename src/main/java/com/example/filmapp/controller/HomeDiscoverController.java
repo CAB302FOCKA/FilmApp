@@ -10,15 +10,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeDiscoverController {
 
@@ -66,13 +67,69 @@ public class HomeDiscoverController {
 
 
     private void loadForYou() {
-        Object[][] suggestions = {
-                {"movie", "603"},    // The Matrix
-                {"tv", "4613"},      // The Office
-                {"tv", "61889"},     // The Mandalorian
-        };
-        for (Object[] entry : suggestions) {
-            addMediaCard((String) entry[0], (String) entry[1], forYouBox);
+        try {
+            String userId = AppState.getInstance().getCurrentUserId();
+            String query = "SELECT mediaType, mediaID FROM watchlist WHERE userID = ?";
+
+            try (Connection conn = DatabaseConnection.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(query)) {
+
+                stmt.setString(1, userId);
+                ResultSet rs = stmt.executeQuery();
+
+                List<String[]> watchlistItems = new ArrayList<>();
+
+                while (rs.next()) {
+                    String mediaType = rs.getString("mediaType");
+                    String mediaId = rs.getString("mediaID");
+                    watchlistItems.add(new String[]{mediaType, mediaId});
+                }
+
+                if (watchlistItems.isEmpty()) {
+                    System.out.println("📭 Watchlist is empty, loading trending into forYouBox...");
+                    API api = new API();
+                    JSONArray results = api.getTrendingMediaList("movie");
+                    if (results != null) {
+                        for (int i = 0; i < Math.min(5, results.size()); i++) {
+                            JSONObject json = (JSONObject) results.get(i);
+                            Media media = MediaFactory.fromJson(json, "movie");
+                            if (media != null && media.getPosterPath() != null) {
+                                forYouBox.getChildren().add(buildCard(media, false));
+                            }
+                        }
+                    }
+                    return;
+                }
+
+                API api = new API();
+                int j = 0;
+                for (String[] item : watchlistItems) {
+                    if (j >= 5) break;
+                    String mediaType = item[0];
+                    String mediaId = item[1];
+                    System.out.println("📺 Found watchlist item: " + mediaType + " - " + mediaId);
+
+                    JSONArray results = api.getRecommendationsList(mediaId);
+                    if (results == null) continue;
+
+                    for (int i = 0; i < Math.min(5, results.size()); i++) {
+                        JSONObject json = (JSONObject) results.get(i);
+                        Media media = MediaFactory.fromJson(json, "movie");
+                        if (media != null && media.getPosterPath() != null) {
+                            forYouBox.getChildren().add(buildCard(media, false));
+                        }
+                    }
+
+                    j++;
+                }
+
+            } catch (SQLException e) {
+                System.err.println("Failed to load watchlist for user " + userId);
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -129,6 +186,15 @@ public class HomeDiscoverController {
         HBox card = new HBox(poster, infoBox);
         card.setSpacing(15);
 
+        card.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            AppState.getInstance().setSelectedMedia(media);
+            try {
+                SceneManager.switchTo("TvMovieDetailsPage.fxml");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
         if (includeRemoveButton) {
             javafx.scene.control.Button removeButton = new javafx.scene.control.Button("Remove");
             removeButton.setOnAction(e -> {
@@ -140,7 +206,6 @@ public class HomeDiscoverController {
 
         return card;
     }
-
 
     private void removeFromWatchlist(String mediaId, String mediaType) {
         String userId = AppState.getInstance().getCurrentUserId();
