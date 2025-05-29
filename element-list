@@ -1,0 +1,7 @@
+com.example.filmapp
+com.example.filmapp.controller
+com.example.filmapp.factory
+com.example.filmapp.model
+com.example.filmapp.service
+com.example.filmapp.state
+com.example.filmapp.util
