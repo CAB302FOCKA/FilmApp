@@ -15,26 +15,51 @@ import java.util.function.Consumer;
 
 public class AccountService {
 
-    private String hashPassword(String password) {
+    // ========== VALIDATION METHODS ==========
+
+    public boolean isAnyFieldEmpty(String... fields) {
+        for (String f : fields) {
+            if (f == null || f.isBlank()) return true;
+        }
+        return false;
+    }
+
+    public boolean doPasswordsMatch(String pass, String confirmPass) {
+        return pass.equals(confirmPass);
+    }
+
+    public boolean isValidEmailFormat(String email) {
+        return email != null && email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$");
+    }
+
+    // ========== PASSWORD ==========
+
+    public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
+
+    public boolean verifyPassword(String password, String hashed) {
+        return BCrypt.checkpw(password, hashed);
+    }
+
+    // ========== REGISTER ==========
 
     public void register(String username, String email, String pass, String confirmPass,
                            Runnable onEmptyFields,
                            Runnable onPasswordMismatch,
                          Consumer<String> onInvalidEmail,
                          Consumer<String> onResult) {
-        if (username.isEmpty() || email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
+        if (isAnyFieldEmpty(username, email, pass, confirmPass)) {
             onEmptyFields.run();
             return;
         }
 
-        if (!pass.equals(confirmPass)) {
+        if (!doPasswordsMatch(pass,confirmPass)) {
             onPasswordMismatch.run();
             return;
         }
 
-        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
+        if (isValidEmailFormat(email)) {
             onInvalidEmail.accept("Invalid email format.");
             return;
         }
@@ -109,7 +134,7 @@ public class AccountService {
                     if (resultSet.next()) {
                         String storedHashPassword = resultSet.getString("userPass");
 
-                        if (BCrypt.checkpw(password, storedHashPassword)) {
+                        if (verifyPassword(password, storedHashPassword)) {
                             userID = resultSet.getString("userID");
                             username = resultSet.getString("userName");
                             userEmail = resultSet.getString("userEmail");

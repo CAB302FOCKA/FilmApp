@@ -3,6 +3,7 @@ package com.example.filmapp.controller;
 import com.example.filmapp.model.Media;
 import com.example.filmapp.factory.MediaFactory;
 import com.example.filmapp.service.API;
+import com.example.filmapp.service.SearchService;
 import com.example.filmapp.state.AppState;
 import com.example.filmapp.util.SceneManager;
 import javafx.event.ActionEvent;
@@ -17,17 +18,20 @@ import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.List;
 
 public class SearchController {
 
     @FXML
-    public ComboBox filterComboBox;
+    public ComboBox<String> filterComboBox;
     @FXML
     private Label queryLabel;
     @FXML
     private FlowPane flowPane;
     @FXML
     private TextField queryTextField;
+
+    private final SearchService searchService = new SearchService(new API());
 
     @FXML
     public void initialize() {
@@ -38,6 +42,8 @@ public class SearchController {
     @FXML
     protected void handleSearchButtonAction(ActionEvent event) throws IOException {
         flowPane.getChildren().clear();
+
+        /*
 
         String mediaType = filterComboBox.getValue().toString();
         switch (mediaType) {
@@ -85,6 +91,37 @@ public class SearchController {
 
         queryLabel.setText(MessageFormat.format("Showing results for \"{0}\"", queryTextField.getText()));
         System.out.println("Showing " + shownCount + "/" + apiResults.size() + " results.");
+        *
+         */
+
+        try {
+            List<Media> results = searchService.search(queryTextField.getText(), filterComboBox.getValue());
+
+            for (Media media : results) {
+                if (media.getPosterPath() == null) continue;
+
+                ImageView imageView = new ImageView();
+                imageView.setImage(new Image("https://image.tmdb.org/t/p/w500" + media.getPosterPath(), true));
+                imageView.setFitWidth(178);
+                imageView.setFitHeight(263);
+
+                imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                    AppState.getInstance().setSelectedMedia(media);
+                    try {
+                        SceneManager.switchTo("TvMovieDetailsPage.fxml");
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+
+                flowPane.getChildren().add(imageView);
+            }
+
+            queryLabel.setText("Showing results for \"" + queryTextField.getText() + "\"");
+
+        } catch (IOException e) {
+            queryLabel.setText("Error during search: " + e.getMessage());
+        }
     }
 
     @FXML
