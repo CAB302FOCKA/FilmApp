@@ -78,7 +78,7 @@ public class HomeDiscoverController {
                 ResultSet rs = stmt.executeQuery();
 
                 if (rs.isLast()) {
-                    System.out.println("📭 Watchlist is empty, loading trending into forYouBox...");
+                    System.out.println("Watchlist is empty, loading trending into forYouBox...");
                     API api = new API();
                     JSONArray results = api.getTrendingMediaList("movie");
                     if (results != null) {
