@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service that manages search page
+ */
 public class SearchService {
     private final API api;
 

@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.function.Consumer;
 
+/**
+ * Service that manages login and register
+ */
 public class AccountService {
 
     // ========== VALIDATION METHODS ==========
