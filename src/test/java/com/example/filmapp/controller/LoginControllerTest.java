@@ -1,5 +1,6 @@
 package com.example.filmapp.controller;
 
+import com.example.filmapp.JavaFXInitializer;
 import javafx.application.Platform;
 import java.util.concurrent.CountDownLatch;
 import javafx.event.ActionEvent;
@@ -16,9 +17,7 @@ class LoginControllerTest {
 
     @BeforeAll
     public static void initToolkit() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
-        Platform.startup(latch::countDown);  // Initialize JavaFX runtime
-        latch.await();  // Wait for it to finish initialization
+        JavaFXInitializer.initToolkit();
     }
 
     @BeforeEach

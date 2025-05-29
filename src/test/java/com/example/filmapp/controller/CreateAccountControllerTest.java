@@ -1,5 +1,6 @@
 package com.example.filmapp.controller;
 
+import com.example.filmapp.JavaFXInitializer;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,9 +16,7 @@ class CreateAccountControllerTest {
 
     @BeforeAll
     public static void initToolkit() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
-        Platform.startup(latch::countDown);  // Initialize JavaFX runtime
-        latch.await();  // Wait for it to finish initialization
+        JavaFXInitializer.initToolkit();
     }
 
     @BeforeEach

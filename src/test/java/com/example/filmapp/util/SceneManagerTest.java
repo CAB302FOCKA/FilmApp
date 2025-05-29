@@ -1,5 +1,6 @@
 package com.example.filmapp.util;
 
+import com.example.filmapp.JavaFXInitializer;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,10 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 class SceneManagerTest {
 
     @BeforeAll
-    public static void initJavaFX() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
-        Platform.startup(latch::countDown);
-        latch.await();
+    public static void initToolkit() throws Exception {
+        JavaFXInitializer.initToolkit();
     }
 
     @Test
