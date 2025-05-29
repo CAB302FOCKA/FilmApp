@@ -4,7 +4,7 @@ import com.example.filmapp.util.SceneManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-// Test javadoc (if it doesnt work revert)
+// Test javadoc (if it doesnt work revert test#2)
 //Main method to run the whole application
 public class App extends Application {
     @Override
