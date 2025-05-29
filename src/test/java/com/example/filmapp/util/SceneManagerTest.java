@@ -10,27 +10,26 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SceneManagerTest {
 
     @BeforeAll
-    public static void initToolkit() throws Exception {
-        JavaFXInitializer.initToolkit();
+    public static void initializeTest() throws Exception {
+        SceneManager.enableTestMode();
     }
 
     @Test
-    public void testInitializeDoesNotThrow() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
+    public void testInvalidFxmlThrows() {
+        assertThrows(RuntimeException.class, () -> {
+            SceneManager.switchTo("someScreen.fxml");  // Will only log in test mode
+        });
+    }
+
+    @Test
+    public void testSwitchToValidPage() {
         assertDoesNotThrow(() -> {
-            Platform.runLater(() -> {
-                try {
-                    Stage mockStage = new Stage();
-                    SceneManager.initialize(mockStage);
-                } finally {
-                    latch.countDown();
-                }
-            });
-            latch.await(5, TimeUnit.SECONDS);
+            SceneManager.switchTo("privacy_data.fxml");  // Will only log in test mode
         });
     }
 }

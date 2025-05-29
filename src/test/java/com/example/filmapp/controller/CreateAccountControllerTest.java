@@ -16,7 +16,7 @@ class CreateAccountControllerTest {
 
     @BeforeAll
     public static void initToolkit() throws Exception {
-        JavaFXInitializer.initToolkit();
+        JavaFXInitializer.initJavaFX();
     }
 
     @BeforeEach
