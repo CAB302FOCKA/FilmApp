@@ -15,6 +15,10 @@ import java.text.MessageFormat;
 /**
  * Responsible for sending requests to the TMDB API and handling the response.
  */
+/**
+ * Handles communication with the TMDB API for media data.
+ * Provides methods to fetch JSON responses from API endpoints.
+ */
 public class API {
 
     public JSONArray searchMediaByTitle(String titleQuery, String mediaType) throws IOException {

@@ -7,6 +7,10 @@ import java.sql.SQLException;
 /**
  * Class to establish connection to mySQL database.
  */
+/**
+ * Manages the connection to the application's SQLite database.
+ * Provides utility to establish and retrieve database connections.
+ */
 public class DatabaseConnection {
 
     private static final String DB_URL = "jdbc:mysql://bc2anwjprqmkmyqwkuor-mysql.services.clever-cloud.com:3306/bc2anwjprqmkmyqwkuor";

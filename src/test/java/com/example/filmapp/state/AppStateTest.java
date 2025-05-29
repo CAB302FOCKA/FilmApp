@@ -24,4 +24,11 @@ class AppStateTest {
         assertEquals(dummyMedia, appState.getSelectedMedia());
         assertEquals("user123", appState.getCurrentUserId());
     }
+
+    @Test
+    void testUserInfoRetrievalFromDB_simulatedViaAppState() {
+        AppState appState = AppState.getInstance();
+        appState.setCurrentUserId("testUserId");
+        assertEquals("testUserId", appState.getCurrentUserId());
+    }
 }

@@ -37,4 +37,16 @@ class SearchServiceTest {
         assertEquals(1, result.size());
         assertEquals("Test Movie", result.get(0).getTitle());
     }
+
+    @Test
+    void testSearchNoResults_returnsEmptyList() throws IOException {
+        SearchService service = new SearchService(new API() {
+            @Override
+            public JSONArray searchMediaByTitle(String query, String type) {
+                return new JSONArray(); // simulate no results
+            }
+        });
+        List<Media> result = service.search("noresults", "Movies");
+        assertTrue(result.isEmpty());
+    }
 }
