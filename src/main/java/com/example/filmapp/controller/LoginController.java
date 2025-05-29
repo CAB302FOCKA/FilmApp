@@ -7,7 +7,6 @@ import com.example.filmapp.UserSession;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -26,16 +25,16 @@ import java.sql.SQLException;
 public class LoginController {
 
     @FXML
-    private TextField emailField;
+    public TextField emailField;
 
     @FXML
-    private TextField passwordField;
+    public TextField passwordField;
 
     @FXML
     private Button loginButton;
 
     @FXML
-    private Label loginStatus;
+    public Label loginStatus;
 
     @FXML
     private Label accCreate;
@@ -51,7 +50,7 @@ public class LoginController {
     }
 
     @FXML
-    private void handleLogin(ActionEvent event) {
+    public void handleLogin(ActionEvent event) {
         String email = emailField.getText();
         String password = passwordField.getText();
 

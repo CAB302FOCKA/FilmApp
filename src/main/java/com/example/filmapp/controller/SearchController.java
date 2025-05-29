@@ -21,7 +21,7 @@ import java.text.MessageFormat;
 public class SearchController {
 
     @FXML
-    private ComboBox filterComboBox;
+    public ComboBox filterComboBox;
     @FXML
     private Label queryLabel;
     @FXML

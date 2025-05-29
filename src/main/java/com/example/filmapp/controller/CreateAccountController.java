@@ -25,13 +25,13 @@ import java.sql.SQLException;
 public class CreateAccountController {
 
     @FXML
-    private TextField myUsername;
+    public TextField myUsername;
     @FXML
-    private TextField myEmail;
+    public TextField myEmail;
     @FXML
-    private TextField myPass;
+    public TextField myPass;
     @FXML
-    private TextField myConfPass;
+    public TextField myConfPass;
     @FXML
     private Button myCreateAccount;
     @FXML
@@ -39,10 +39,10 @@ public class CreateAccountController {
     @FXML
     private Label myLogin;
 
-    private String username;
-    private String email;
-    private String pass;
-    private String confPass;
+    public String username;
+    public String email;
+    public String pass;
+    public String confPass;
 
     @FXML
     private void submit(ActionEvent event) throws IOException {
@@ -63,7 +63,7 @@ public class CreateAccountController {
         SceneManager.switchTo("/com/example/filmapp/login.fxml");
     }
 
-    private boolean validateInputs() {
+    public boolean validateInputs() {
         if (username.isEmpty() || email.isEmpty() || pass.isEmpty() || confPass.isEmpty()) {
             System.out.println("All fields are required.");
             return false;
