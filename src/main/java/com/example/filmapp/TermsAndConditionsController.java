@@ -12,6 +12,10 @@ import javafx.scene.control.TextArea;
 
 import java.io.IOException;
 
+/**
+ * Establishes the terms and conditions of the app
+ */
+
 public class TermsAndConditionsController {
 
     @FXML

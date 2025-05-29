@@ -1,5 +1,9 @@
 package com.example.filmapp;
 
+/**
+ * Defines the session for the user so they can have unique attributes such as watchlist
+ */
+
 public class UserSession {
     private static String username;
     private static String email;

@@ -1,5 +1,6 @@
-package com.example.filmapp;
+package com.example.filmapp.controller;
 
+import com.example.filmapp.UserSession;
 import com.example.filmapp.service.DatabaseConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+/**
+ * Class for the account settings. Assists users with their account settings
+ */
 
 public class AccountSettingsController {
 

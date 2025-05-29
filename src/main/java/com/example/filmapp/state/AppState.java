@@ -2,6 +2,10 @@ package com.example.filmapp.state;
 
 import com.example.filmapp.model.Media;
 
+/**
+ * Class to establish a state of the app whether it be user, or media
+ */
+
 public class AppState {
     private static AppState instance;
     private Media selectedMedia;

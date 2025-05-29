@@ -31,6 +31,10 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
+/**
+ * Class to retrieve media details page. Shows the details of a specific TV show/Movie including description, cast and similar media
+ */
+
 public class MediaDetailsController {
     Media selectedMedia = AppState.getInstance().getSelectedMedia();
 

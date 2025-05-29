@@ -11,6 +11,10 @@ import javafx.scene.control.TextArea;
 
 import java.io.IOException;
 
+/**
+ * Establishes the privacy policy of the application
+ */
+
 public class PrivacyDataController {
 
     @FXML
