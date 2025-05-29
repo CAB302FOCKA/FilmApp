@@ -6,7 +6,10 @@ import com.example.filmapp.service.API;
 import com.example.filmapp.service.DatabaseConnection;
 import com.example.filmapp.state.AppState;
 import com.example.filmapp.util.SceneManager;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,150 +21,141 @@ import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeDiscoverController {
 
-    @FXML
-    private VBox watchlistBox;
-
-    @FXML
-    private VBox forYouBox;
-
-    @FXML
-    private VBox trendingBox;
+    @FXML private VBox watchlistBox;
+    @FXML private VBox forYouBox;
+    @FXML private VBox trendingBox;
 
     @FXML
     public void initialize() {
-        System.out.println("HomeDiscoverController initialized");
-
+        System.out.println("✅ HomeDiscoverController initialized");
         loadWatchlist();
-        loadForYou();    // Random IDs
-        loadTrending();  // From API
+        loadForYou();
+        loadTrending();
     }
 
     private void loadWatchlist() {
-        String userId = AppState.getInstance().getCurrentUserId();
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() {
+                String userId = AppState.getInstance().getCurrentUserId();
+                String query = "SELECT mediaType, mediaID FROM watchlist WHERE userID = ?";
 
-        String query = "SELECT mediaType, mediaID FROM watchlist WHERE userID = ?";
+                try (Connection conn = DatabaseConnection.getConnection();
+                     PreparedStatement stmt = conn.prepareStatement(query)) {
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+                    stmt.setString(1, userId);
+                    ResultSet rs = stmt.executeQuery();
 
-            stmt.setString(1, userId);
-            ResultSet rs = stmt.executeQuery();
+                    while (rs.next()) {
+                        String mediaType = rs.getString("mediaType");
+                        String mediaId = rs.getString("mediaID");
+                        System.out.println("📺 Watchlist item: " + mediaType + " - " + mediaId);
 
-            while (rs.next()) {
-                String mediaType = rs.getString("mediaType");
-                String mediaId = rs.getString("mediaID");
-                System.out.println("📺 Found watchlist item: " + mediaType + " - " + mediaId);
-                addMediaCard(mediaType, mediaId, watchlistBox);
+                        JSONObject json = new API().getMediaDetails(mediaType, mediaId);
+                        Media media = MediaFactory.fromJson(json, mediaType);
+                        if (media != null && media.getPosterPath() != null) {
+                            HBox card = buildCard(media, true);
+                            Platform.runLater(() -> watchlistBox.getChildren().add(card));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
-
-        } catch (SQLException e) {
-            System.err.println("Failed to load watchlist for user " + userId);
-            e.printStackTrace();
-        }
+        };
+        new Thread(task).start();
     }
 
-
     private void loadForYou() {
-        try {
-            String userId = AppState.getInstance().getCurrentUserId();
-            String query = "SELECT mediaType, mediaID FROM watchlist WHERE userID = ?";
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() {
+                String userId = AppState.getInstance().getCurrentUserId();
+                String query = "SELECT mediaType, mediaID FROM watchlist WHERE userID = ?";
 
-            try (Connection conn = DatabaseConnection.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(query)) {
+                try (Connection conn = DatabaseConnection.getConnection();
+                     PreparedStatement stmt = conn.prepareStatement(query)) {
 
-                stmt.setString(1, userId);
-                ResultSet rs = stmt.executeQuery();
+                    stmt.setString(1, userId);
+                    ResultSet rs = stmt.executeQuery();
 
-                if (rs.isLast()) {
-                    System.out.println("📭 Watchlist is empty, loading trending into forYouBox...");
-                    API api = new API();
-                    JSONArray results = api.getTrendingMediaList("movie");
-                    if (results != null) {
+                    if (!rs.isBeforeFirst()) {
+                        System.out.println("📭 Watchlist empty, using trending for ForYou");
+                        JSONArray results = new API().getTrendingMediaList("movie");
                         for (int i = 0; i < Math.min(5, results.size()); i++) {
                             JSONObject json = (JSONObject) results.get(i);
                             Media media = MediaFactory.fromJson(json, "movie");
                             if (media != null && media.getPosterPath() != null) {
-                                forYouBox.getChildren().add(buildCard(media, false));
+                                HBox card = buildCard(media, false);
+                                Platform.runLater(() -> forYouBox.getChildren().add(card));
                             }
                         }
+                        return null;
                     }
-                    return;
-                }
 
-                API api = new API();
-                int j = 0;
-                while (rs.next() && j < 5) {
-                    String mediaType = rs.getString("mediaType");
-                    String mediaId = rs.getString("mediaID");
-                    System.out.println("📺 Found watchlist item: " + mediaType + " - " + mediaId);
-                    JSONObject json1 = api.getMediaDetails(mediaType,mediaId);
-                    Media media1 = MediaFactory.fromJson(json1, mediaType);
-                    JSONArray results = api.getRecommendationsList(media1);
-                    if (results == null) continue;
+                    int j = 0;
+                    API api = new API();
+                    while (rs.next() && j < 5) {
+                        String mediaType = rs.getString("mediaType");
+                        String mediaId = rs.getString("mediaID");
 
-                    for (int i = 0; i < Math.min(5, results.size()); i++) {
-                        JSONObject json = (JSONObject) results.get(i);
+                        JSONObject details = api.getMediaDetails(mediaType, mediaId);
+                        Media baseMedia = MediaFactory.fromJson(details, mediaType);
+                        JSONArray recs = api.getRecommendationsList(baseMedia);
+                        if (recs == null) continue;
 
-                        Media media = MediaFactory.fromJson(json, mediaType);
-                        if (media != null && media.getPosterPath() != null) {
-                            forYouBox.getChildren().add(buildCard(media, false));
+                        for (int i = 0; i < Math.min(3, recs.size()); i++) {
+                            JSONObject json = (JSONObject) recs.get(i);
+                            Media media = MediaFactory.fromJson(json, mediaType);
+                            if (media != null && media.getPosterPath() != null) {
+                                HBox card = buildCard(media, false);
+                                Platform.runLater(() -> forYouBox.getChildren().add(card));
+                            }
                         }
+                        j++;
                     }
-                    j++;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
-            } catch (SQLException e) {
-                System.err.println("Failed to load watchlist for user " + userId);
-                e.printStackTrace();
+                return null;
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        };
+        new Thread(task).start();
     }
 
     private void loadTrending() {
-        try {
-            API api = new API();
-            JSONArray results = api.getTrendingMediaList("movie");
-            if (results == null) return;
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() {
+                try {
+                    JSONArray results = new API().getTrendingMediaList("movie");
+                    if (results == null) return null;
 
-            for (int i = 0; i < Math.min(5, results.size()); i++) {
-                JSONObject json = (JSONObject) results.get(i);
-                Media media = MediaFactory.fromJson(json, "movie");
-                if (media != null && media.getPosterPath() != null) {
-                    trendingBox.getChildren().add(buildCard(media, false));
+                    for (int i = 0; i < Math.min(5, results.size()); i++) {
+                        JSONObject json = (JSONObject) results.get(i);
+                        Media media = MediaFactory.fromJson(json, "movie");
+                        if (media != null && media.getPosterPath() != null) {
+                            HBox card = buildCard(media, false);
+                            Platform.runLater(() -> trendingBox.getChildren().add(card));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                return null;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        };
+        new Thread(task).start();
     }
-
-    private void addMediaCard(String type, String id, VBox targetBox) {
-        try {
-            API api = new API();
-            JSONObject json = api.getMediaDetails(type, id);
-            Media media = MediaFactory.fromJson(json, type);
-            if (media != null && media.getPosterPath() != null) {
-                HBox card = buildCard(media, targetBox == watchlistBox); // show remove only on watchlist
-                targetBox.getChildren().add(card);
-            }
-        } catch (Exception e) {
-            System.err.println("Failed to load: " + id);
-        }
-    }
-
 
     private HBox buildCard(Media media, boolean includeRemoveButton) {
-        ImageView poster = new ImageView();
-        Image image = new Image("https://image.tmdb.org/t/p/w200" + media.getPosterPath(), true);
-        poster.setImage(image);
+        ImageView poster = new ImageView(new Image("https://image.tmdb.org/t/p/w200" + media.getPosterPath(), true));
         poster.setFitWidth(80);
         poster.setFitHeight(120);
 
@@ -183,12 +177,12 @@ public class HomeDiscoverController {
             try {
                 SceneManager.switchTo("TvMovieDetailsPage.fxml");
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                ex.printStackTrace();
             }
         });
 
         if (includeRemoveButton) {
-            javafx.scene.control.Button removeButton = new javafx.scene.control.Button("Remove");
+            Button removeButton = new Button("Remove");
             removeButton.setOnAction(e -> {
                 removeFromWatchlist(media.getId(), media.getMediaType());
                 watchlistBox.getChildren().remove(card);
@@ -201,38 +195,32 @@ public class HomeDiscoverController {
 
     private void removeFromWatchlist(String mediaId, String mediaType) {
         String userId = AppState.getInstance().getCurrentUserId();
-
         String sql = "DELETE FROM watchlist WHERE userID = ? AND mediaID = ? AND mediaType = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, userId);
             stmt.setString(2, mediaId);
             stmt.setString(3, mediaType);
-
             int rows = stmt.executeUpdate();
             if (rows > 0) {
-                System.out.println("Removed from watchlist: " + mediaId);
+                System.out.println("✅ Removed from watchlist: " + mediaId);
             }
-
         } catch (SQLException e) {
-            System.err.println("Could not remove from watchlist");
+            System.err.println("❌ Could not remove from watchlist");
             e.printStackTrace();
         }
     }
 
-
-    @FXML
-    private void handleSearchButton() {
+    @FXML private void handleSearchButton() {
         try {
             SceneManager.switchTo("search.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    @FXML
-    private void handleSettingsButton() {
+
+    @FXML private void handleSettingsButton() {
         try {
             SceneManager.switchTo("settings.fxml");
         } catch (Exception e) {
@@ -240,13 +228,11 @@ public class HomeDiscoverController {
         }
     }
 
-    @FXML
-    private void handleAccountButton() {
+    @FXML private void handleAccountButton() {
         try {
             SceneManager.switchTo("account_settings.fxml");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
