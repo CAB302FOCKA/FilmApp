@@ -11,16 +11,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.Region?>
 <VBox xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.filmapp.controller.SearchController"
       prefWidth="1024" prefHeight="768"
-      spacing="10" fillWidth="true">
-
-   <Button fx:id="handleBackController"
-           mnemonicParsing="false"
-           onAction="#handleBackController"
-           text="Back" />
+      spacing="10" fillWidth="true"
+      style="-fx-padding: 20;">
+   <HBox alignment="CENTER">
+      <Button fx:id="handleBackController" style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;"
+              mnemonicParsing="false"
+              onAction="#handleBackController"
+              text="Back" />
+      <Region HBox.hgrow="ALWAYS" />
+      <ImageView fitHeight="150" fitWidth="400" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Region HBox.hgrow="ALWAYS" />
+   </HBox>
 
    <Label fx:id="queryLabel">
       <font>
@@ -33,9 +49,9 @@
 
    <HBox spacing="20.0">
       <children>
-         <ComboBox fx:id="filterComboBox" prefWidth="150.0" />
+         <ComboBox fx:id="filterComboBox" prefWidth="150.0" style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;" />
          <TextField fx:id="queryTextField" promptText="Search..." />
-         <Button fx:id="searchButton"
+         <Button fx:id="searchButton" style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;"
                  mnemonicParsing="false"
                  onAction="#handleSearchButtonAction"
                  prefWidth="90.0"

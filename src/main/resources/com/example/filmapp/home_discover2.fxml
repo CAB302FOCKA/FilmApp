@@ -7,17 +7,43 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="768.0" prefWidth="1024.0" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filmapp.controller.HomeDiscoverController">
-
-    <HBox alignment="CENTER" spacing="20">
-        <Button fx:id="settingsBtn" onAction="#handleSettingsButton" text="⚙" />
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox prefHeight="768.0" prefWidth="1024.0" spacing="10" style="-fx-padding: 20; -fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filmapp.controller.HomeDiscoverController">
+    <HBox alignment="CENTER" spacing="20" style="-fx-padding: 10;">
+        <!-- Left: Settings Button -->
+        <Button fx:id="settingsBtn"
+                onAction="#handleSettingsButton"
+                text="⚙"
+                style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;" />
 
         <Region HBox.hgrow="ALWAYS" />
-        <Button text="Home" />
-        <Button fx:id="searchBtn" onAction="#handleSearchButton" text="Search" />
+
+        <!-- Center: Logo -->
+        <ImageView fitHeight="150" fitWidth="400" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@logo.png" />
+            </image>
+            <effect>
+                <DropShadow />
+            </effect>
+        </ImageView>
+
+        <!-- Spacer to push right buttons to end -->
         <Region HBox.hgrow="ALWAYS" />
-        <Button fx:id="account" onAction="#handleAccountButton" text="👤" />
+
+        <Button fx:id="account"
+                onAction="#handleAccountButton"
+                text="👤"
+                style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;" />
     </HBox>
+    <Button fx:id="searchBtn"
+            onAction="#handleSearchButton"
+            text="Search"
+            prefWidth="150"
+            prefHeight="50"
+            style="-fx-font-size: 16px; -fx-background-color: #343434; -fx-text-fill: #f9f9f7;" />
 
     <HBox prefHeight="1000.0" prefWidth="1920.0" spacing="30">
         <!-- Watchlist Column -->
