@@ -9,78 +9,67 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.filmapp.controller.SettingsController" style="-fx-background-color: white">
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.effect.DropShadow?>
+<BorderPane prefHeight="768.0" prefWidth="1024.0"
+            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            fx:controller="com.example.filmapp.controller.SettingsController"
+            style="-fx-padding: 20; -fx-background-color: white">
 
     <top>
-        <Label alignment="CENTER" maxWidth="Infinity" style="-fx-font-weight: bold; -fx-font-size: 32px;" text="Settings" />
-    </top>
-    <left>
-        <VBox alignment="TOP_LEFT" spacing="85">
-            <padding>
-                <Insets bottom="30" left="10" right="80" top="30" />
-            </padding>
+        <VBox alignment="TOP_CENTER" spacing="10">
+            <HBox alignment="CENTER">
+                <Button fx:id="handleBackController" style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;"
+                        mnemonicParsing="false"
+                        onAction="#handleBackController"
+                        text="Back" />
+                <Region HBox.hgrow="ALWAYS" />
+                <ImageView fitHeight="150" fitWidth="400" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@logo.png" />
+                    </image>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </ImageView>
+                <Region HBox.hgrow="ALWAYS" />
+            </HBox>
 
-            <Button graphicTextGap="10" onAction="#handleBackController" prefWidth="200" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 20px; -fx-border-color: transparent;" text="Back">
-                <graphic>
-                    <ImageView fitHeight="80" fitWidth="80">
-                        <image>
-                            <Image url="file:src/main/resources/icons/back.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
+            <HBox alignment="CENTER" spacing="20">
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="Settings"
+                       style="-fx-font-weight: bold; -fx-font-size: 32px;"
+                       maxWidth="Infinity"
+                       alignment="CENTER" />
+                <Region HBox.hgrow="ALWAYS" />
+            </HBox>
         </VBox>
-    </left>
+    </top>
 
     <center>
-        <HBox alignment="CENTER_LEFT">
-            <VBox alignment="CENTER_LEFT" spacing="50.0">
-                <padding>
-                    <Insets bottom="30" left="-90" right="80" top="150" />
-                </padding>
+        <VBox alignment="CENTER" spacing="40">
+            <padding>
+                <Insets top="50" />
+            </padding>
 
-                <!-- Adjust Button Styles to Left-align Text -->
-                <Button graphicTextGap="25" onAction="#handlePrivacy" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Privacy &amp; Data">
-                    <graphic>
-                        <ImageView fitHeight="80" fitWidth="80">
-                            <image>
-                                <Image url="file:src/main/resources/icons/privacy.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button graphicTextGap="25" onAction="#handleTerms" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Terms and Conditions">
-                    <graphic>
-                        <ImageView fitHeight="80" fitWidth="80">
-                            <image>
-                                <Image url="file:src/main/resources/icons/terms.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button graphicTextGap="25" onAction="#handleLogout" prefWidth="500" style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: red; -fx-font-size: 26px; -fx-border-color: transparent; -fx-alignment: CENTER_LEFT;" text="Logout">
-                    <graphic>
-                        <ImageView fitHeight="80" fitWidth="80">
-                            <image>
-                                <Image url="file:src/main/resources/icons/logout.png" />
+            <Button onAction="#handlePrivacy"
+                    prefWidth="600"
+                    prefHeight="70"
+                    style="-fx-font-size: 18px; -fx-background-color: #343434; -fx-text-fill: #f9f9f7;"
+                    text="Privacy &amp; Data" />
 
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </VBox>
-        </HBox>
+            <Button onAction="#handleTerms"
+                    prefWidth="600"
+                    prefHeight="70"
+                    style="-fx-font-size: 18px; -fx-background-color: #343434; -fx-text-fill: #f9f9f7;"
+                    text="Terms and Conditions" />
+
+            <Button onAction="#handleLogout"
+                    prefWidth="600"
+                    prefHeight="70"
+                    style="-fx-font-size: 18px; -fx-background-color: #343434; -fx-text-fill: #f9f9f7;"
+                    text="Logout" />
+        </VBox>
     </center>
-
-    <bottom>
-        <Label alignment="CENTER" maxWidth="Infinity">
-            <graphic>
-                <ImageView fitHeight="120" fitWidth="300">
-                    <image>
-                        <Image url="file:src/main/resources/icons/focka.png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Label>
-    </bottom>
 </BorderPane>

@@ -49,7 +49,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </PasswordField>
-      <Button fx:id="myCreateAccount" mnemonicParsing="false" onAction="#submit" text="Create Account">
+      <Button fx:id="myCreateAccount" style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;" mnemonicParsing="false" onAction="#submit" text="Create Account">
          <font>
             <Font size="30.0" />
          </font>

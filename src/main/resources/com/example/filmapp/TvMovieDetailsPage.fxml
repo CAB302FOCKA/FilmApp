@@ -12,18 +12,21 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filmapp.controller.MediaDetailsController">
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<ScrollPane style="-fx-padding: 20;" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filmapp.controller.MediaDetailsController">
   <content>
     <AnchorPane prefHeight="768.0" prefWidth="1024.0">
          <children>
-            <VBox prefHeight="1080.0" prefWidth="1920.0">
+            <VBox prefHeight="1080.0" prefWidth="1024">
                <children>
-                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="1920.0">
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="1024.0">
                      <children>
-                        <ImageView fx:id="mediaBanner" fitHeight="141.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a1a1af3" height="141.0" stroke="BLACK" strokeType="INSIDE" width="1920.0" />
+                        <ImageView fx:id="mediaBanner" fitHeight="141.0" fitWidth="1024.0" pickOnBounds="true" preserveRatio="true">
+                           <Image url="@logo.png"/>
+                        </ImageView>
                      </children>
-                  </Pane>
+                  </StackPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <Label fx:id="titleText" layoutX="343.0" layoutY="47.0" text="Title">
@@ -34,9 +37,9 @@
                            <font>
                               <Font size="14.0" />
                            </font></Label>
-                        <Button fx:id="PlayTrailerButton" layoutX="349.0" layoutY="294.0" mnemonicParsing="false" onAction="#onPlayTrailerClicked" text="Play Trailer" />
-                        <Button fx:id="addToWatchlistButton" layoutX="435.0" layoutY="294.0" onAction="#handleAddToWatchlist" text="Add to Watchlist" />
-                        <Button fx:id="backButton" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButtonClicked" text="&lt;" />
+                        <Button fx:id="PlayTrailerButton" style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;" layoutX="349.0" layoutY="294.0" mnemonicParsing="false" onAction="#onPlayTrailerClicked" text="Play Trailer" />
+                        <Button fx:id="addToWatchlistButton" style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;" layoutX="435.0" layoutY="294.0" onAction="#handleAddToWatchlist" text="Add to Watchlist" />
+                        <Button fx:id="backButton" style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" />
                         <Label fx:id="mediaLabel" layoutX="423.0" layoutY="105.0">
                            <font>
                               <Font size="16.0" />

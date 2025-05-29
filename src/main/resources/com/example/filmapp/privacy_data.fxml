@@ -19,16 +19,9 @@
     <left>
         <VBox spacing="85" alignment="TOP_LEFT">
             <padding><Insets top="30" right="80" bottom="30" left="10"/></padding>
-            <Button text="Back" onAction="#handleBack" prefWidth="200"
+            <Button text="Back" onAction="#handleBack"
                     graphicTextGap="10"
-                    style="-fx-font-weight: bold; -fx-background-color: transparent; -fx-text-fill: #000000; -fx-font-size: 20px; -fx-border-color: transparent;">
-                <graphic>
-                    <ImageView fitHeight="80" fitWidth="80">
-                        <image>
-                            <Image url="file:src/main/resources/icons/back.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
+                    style="-fx-background-color: #343434; -fx-text-fill: #f9f9f7;" >
             </Button>
         </VBox>
     </left>
