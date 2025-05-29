@@ -18,6 +18,9 @@ import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+/**
+ * Class to control the search page. Utilises the TMDB API to retrieve media from a search query
+ */
 import java.util.List;
 
 public class SearchController {

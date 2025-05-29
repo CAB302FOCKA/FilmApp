@@ -11,6 +11,10 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
+/**
+ * Function to retrieve interactive media cards
+ */
+
 public class MovieCardController {
     @FXML private Label titleLabel;
     @FXML private Label descriptionLabel;

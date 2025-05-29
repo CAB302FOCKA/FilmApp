@@ -21,6 +21,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to retrieve home page. Collects information from the database regarding watchlist, reccomendations and trending
+ */
+
 public class HomeDiscoverController {
 
     @FXML

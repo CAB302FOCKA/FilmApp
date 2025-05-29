@@ -5,7 +5,9 @@ import javafx.fxml.FXML;
 
 
 import java.io.IOException;
-
+/**
+ * Class to control the settings based off each user. Allows users to delete account, change password, etc.
+ */
 public class SettingsController {
 
     @FXML
