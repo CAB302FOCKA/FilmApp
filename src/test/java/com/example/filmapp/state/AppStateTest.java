@@ -1,7 +1,10 @@
 package com.example.filmapp.state;
 
 import com.example.filmapp.model.Media;
+import com.example.filmapp.model.Movie;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,10 +22,8 @@ class AppStateTest {
 
         Media dummyMedia = new Media("id", "title", "overview", "poster", "backdrop", 0.0, 0, null) {};
         appState.setSelectedMedia(dummyMedia);
-        appState.setCurrentUserId("user123");
 
         assertEquals(dummyMedia, appState.getSelectedMedia());
-        assertEquals("user123", appState.getCurrentUserId());
     }
 
     @Test
@@ -30,5 +31,10 @@ class AppStateTest {
         AppState appState = AppState.getInstance();
         appState.setCurrentUserId("testUserId");
         assertEquals("testUserId", appState.getCurrentUserId());
+    }
+
+    @Test
+    void testInitialSelectedMediaIsNull() {
+        assertNull(AppState.getInstance().getSelectedMedia());
     }
 }

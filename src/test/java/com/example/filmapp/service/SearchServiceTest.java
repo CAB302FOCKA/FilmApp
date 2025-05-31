@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SearchServiceTest {
 
-    static class MockAPI extends API {
+    static class MockAPIWithResult extends API {
         @Override
         public JSONArray searchMediaByTitle(String query, String type) {
             JSONArray array = new JSONArray();
@@ -28,25 +28,33 @@ class SearchServiceTest {
         }
     }
 
+    static class MockAPIWithNoResult extends API {
+        @Override
+        public JSONArray searchMediaByTitle(String query, String type) {
+            return new JSONArray(); // Simulates no results found
+        }
+    }
+
+    // -------- Test Cases --------
+
     @Test
-    void testSearch_returnsCorrectMediaList() throws IOException {
-        SearchService service = new SearchService(new MockAPI());
+    void search_returnsResults_whenMediaFound() throws IOException {
+        SearchService service = new SearchService(new MockAPIWithResult());
 
         List<Media> result = service.search("test", "Movies");
 
-        assertEquals(1, result.size());
+        assertEquals(1, result.size(), "Expected one result");
         assertEquals("Test Movie", result.get(0).getTitle());
+        assertEquals("movie", result.get(0).getMediaType());
     }
 
     @Test
-    void testSearchNoResults_returnsEmptyList() throws IOException {
-        SearchService service = new SearchService(new API() {
-            @Override
-            public JSONArray searchMediaByTitle(String query, String type) {
-                return new JSONArray(); // simulate no results
-            }
-        });
+    void search_returnsEmptyList_whenNoResultsFound() throws IOException {
+        SearchService service = new SearchService(new MockAPIWithNoResult());
+
         List<Media> result = service.search("noresults", "Movies");
-        assertTrue(result.isEmpty());
+
+        assertNotNull(result, "Result list should not be null");
+        assertTrue(result.isEmpty(), "Expected empty result list");
     }
 }
