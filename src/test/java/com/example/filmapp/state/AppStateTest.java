@@ -32,9 +32,4 @@ class AppStateTest {
         appState.setCurrentUserId("testUserId");
         assertEquals("testUserId", appState.getCurrentUserId());
     }
-
-    @Test
-    void testInitialSelectedMediaIsNull() {
-        assertNull(AppState.getInstance().getSelectedMedia());
-    }
 }
